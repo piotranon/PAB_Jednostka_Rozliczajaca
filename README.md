@@ -7,6 +7,8 @@ Bochaczyk Krzysztof, Bury Karol, Dyndał Patryk, Długosz Piotr, Filar Kamil
 
 ## Procesy biznesowe
 
+https://lucid.app/invitations/accept/87655b43-2da9-4736-95b8-61e859310afe
+
 1. Dodanie nowego banku jeśli nie istnieje.
     1. Utworzenie numeru rachunku zgodnie z wzorem ```SK BBBB BBBB 0000 0000 0000 0000```  
     **SK** - suma kontrolna wyliczana podczas rejestracji   
@@ -15,7 +17,8 @@ Bochaczyk Krzysztof, Bury Karol, Dyndał Patryk, Długosz Piotr, Filar Kamil
 1. Przyjęcie operacji przelewów do innych banków.  
     1. Przyjęcie listy obiektów przelewów.
         ```json
-        [{
+        [
+            {
             "Payer":{
                 "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
                 "Name": "imie nazwisko",
