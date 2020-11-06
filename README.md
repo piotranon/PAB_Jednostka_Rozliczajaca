@@ -4,71 +4,111 @@
 Bochaczyk Krzysztof, Bury Karol, Dyndał Patryk, Długosz Piotr, Filar Kamil
 
 ## Spis treści
+1. [Procesy biznesowe]
 
 ## Procesy biznesowe
+[<img src="./img/procesyBiznesowe.svg">](https://viewer.diagrams.net/?highlight=0000ff&edit=_blank&layers=1&nav=1&title=Untitled%20Diagram.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1CxdqwrclNktHwcE07UlyG85WAzIhZnhK%26export%3Ddownload)
 
-https://lucid.app/invitations/accept/87655b43-2da9-4736-95b8-61e859310afe
+## [Link do BPMN](https://viewer.diagrams.net/?highlight=0000ff&edit=_blank&layers=1&nav=1&title=Untitled%20Diagram.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1CxdqwrclNktHwcE07UlyG85WAzIhZnhK%26export%3Ddownload)
 
-1. Dodanie nowego banku jeśli nie istnieje.
-    1. Utworzenie numeru rachunku zgodnie z wzorem ```SK BBBB BBBB 0000 0000 0000 0000```  
-    **SK** - suma kontrolna wyliczana podczas rejestracji   
-    **BBBB BBBB** - unikalny numer bannku
-    
-1. Przyjęcie operacji przelewów do innych banków.  
-    1. Przyjęcie listy obiektów przelewów.  
-        1. Bank_Info - informacje odnośnie banku.
-        1. Outgoing_Transfers - przelewy wychodzące z banku.
-        1. Incorrect_Transfers - przelewy błędne wychodzące z banku.
+1. Rozliczanie płatności pomiędzy bankami.  
+
+    Jednostka rozliczeniowa przyjmuję informację odnośnie banku, przelewów danego banku, natomiast zwraca dane odnośnie przelewów wykonanych do danego banku.
+
+      * Format danych odbieranych:   
+        * Bank_Info - informacje odnośnie banku (służą do identyfikacji banku)
+        * Outgoing_Transfers - przelewy wychodzące (przelewy wykonane przez użytkowników banku)
+        * Outgoing_Incorrect_Transfers - przelewy wychodzące błędne (przelewy które zostały przysłane do banku lecz nie są poprawne (nie ma takiego konta, nie zgadzaja sie dane))
         ```json
-        {
-            "Bank_Info":{
-                "Bank_Number":"SK BBBB",
-                "Total_Transfer_Amount":0.00
-            },
-            "Outgoing_Transfers":{
-                "Transfers_Amount": 0.00,
-                "Transfers":[
-                    {  
-                    "Payer":{
-                        "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
-                        "Name": "imie nazwisko",
-                        "Address": "adres odbiorcy"
-                    },
-                    "Recipient":{
-                        "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
-                        "Name": "imie nazwisko",
-                        "Address": "adres odbiorcy"
-                    },
-                    "Title":"tytuł przelewu",
-                    "Transfer_Amount": 0.00
-                    }
-                ]
-            },
-            "Incorrect_Transfers":{
-                "Transfers_Amount": 0.00,
-                "Transfers":[
-                    {  
-                    "Payer":{
-                        "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
-                        "Name": "imie nazwisko",
-                        "Address": "adres odbiorcy"
-                    },
-                    "Recipient":{
-                        "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
-                        "Name": "imie nazwisko",
-                        "Address": "adres odbiorcy"
-                    },
-                    "Title":"tytuł przelewu",
-                    "Transfer_Amount": 0.00
-                    }
-                ]
+            {
+                "Bank_Info":{
+                    "Bank_Number":"SK BBBB",
+                    "Total_Transfer_Amount":0.00
+                },
+                "Outgoing_Transfers":{
+                    "Transfers_Amount": 0.00,
+                    "Transfers":[
+                        {  
+                        "Payer":{
+                            "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                            "Name": "imie nazwisko",
+                            "Address": "adres odbiorcy"
+                        },
+                        "Recipient":{
+                            "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                            "Name": "imie nazwisko",
+                            "Address": "adres odbiorcy"
+                        },
+                        "Title":"tytuł przelewu",
+                        "Transfer_Amount": 0.00
+                        }
+                    ]
+                },
+                "Outgoing_Incorrect_Transfers":{
+                    "Transfers_Amount": 0.00,
+                    "Transfers":[
+                        {  
+                        "Payer":{
+                            "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                            "Name": "imie nazwisko",
+                            "Address": "adres odbiorcy"
+                        },
+                        "Recipient":{
+                            "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                            "Name": "imie nazwisko",
+                            "Address": "adres odbiorcy"
+                        },
+                        "Title":"tytuł przelewu",
+                        "Transfer_Amount": 0.00
+                        }
+                    ]
+                }
             }
-        }
         ```
-    1. Weryfikacja czy numer konta zleceniodawcy jest zgodny z numerem konta banku.
-        1. Jeśli zgodny to zapisuje do wykonania.
-        1. Jeśli nie zgodny zapisuje do zwrotu.
-    1. 
-1. Wyświetlanie informacji odnośnie danych banku.  
-    1. Aktualny stan konta
-    1. Historia operacji (uznania/obciążenia)
+    * Format danych zwracanych:  
+        *  Total_Transfer_Amount - całkowita kwota przelewów
+        *  Incoming_Transfers - przelewy przychodzące do banku
+        *  Incoming_Incorrect_Transfers - przelewy zawrócone (przelewy zwrocone przez inne banki, nie istnieje bank odbierający w systemie)
+        ```json
+            {
+                "Total_Transfer_Amount":0.00,
+                "Incoming_Transfers":{
+                    "Transfers_Amount": 0.00,
+                    "Transfers":[
+                        {  
+                        "Payer":{
+                            "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                            "Name": "imie nazwisko",
+                            "Address": "adres odbiorcy"
+                        },
+                        "Recipient":{
+                            "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                            "Name": "imie nazwisko",
+                            "Address": "adres odbiorcy"
+                        },
+                        "Title":"tytuł przelewu",
+                        "Transfer_Amount": 0.00
+                        }
+                    ]
+                },
+                "Incoming_Incorrect_Transfers":{
+                    "Transfers_Amount": 0.00,
+                    "Transfers":[
+                        {  
+                        "Payer":{
+                            "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                            "Name": "imie nazwisko",
+                            "Address": "adres odbiorcy"
+                        },
+                        "Recipient":{
+                            "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                            "Name": "imie nazwisko",
+                            "Address": "adres odbiorcy"
+                        },
+                        "Title":"tytuł przelewu",
+                        "Transfer_Amount": 0.00
+                        }
+                    ]
+                }
+            }
+        ```
