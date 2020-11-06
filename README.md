@@ -23,40 +23,46 @@ https://lucid.app/invitations/accept/87655b43-2da9-4736-95b8-61e859310afe
         {
             "Bank_Info":{
                 "Bank_Number":"SK BBBB",
-                "Transfer_Amount":0.00
+                "Total_Transfer_Amount":0.00
             },
-            "Outgoing_Transfers":[
-                {  
-                "Payer":{
-                    "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
-                    "Name": "imie nazwisko",
-                    "Address": "adres odbiorcy"
-                },
-                "Recipient":{
-                    "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
-                    "Name": "imie nazwisko",
-                    "Address": "adres odbiorcy"
-                },
-                "Title":"tytuł przelewu",
-                "Transfer_Amount": 0.00
-                }
-            ],
-            "Incorrect_Transfers":[
-                {  
-                "Payer":{
-                    "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
-                    "Name": "imie nazwisko",
-                    "Address": "adres odbiorcy"
-                },
-                "Recipient":{
-                    "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
-                    "Name": "imie nazwisko",
-                    "Address": "adres odbiorcy"
-                },
-                "Title":"tytuł przelewu",
-                "Transfer_Amount": 0.00
-                }
-            ]
+            "Outgoing_Transfers":{
+                "Transfers_Amount": 0.00,
+                "Transfers":[
+                    {  
+                    "Payer":{
+                        "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                        "Name": "imie nazwisko",
+                        "Address": "adres odbiorcy"
+                    },
+                    "Recipient":{
+                        "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                        "Name": "imie nazwisko",
+                        "Address": "adres odbiorcy"
+                    },
+                    "Title":"tytuł przelewu",
+                    "Transfer_Amount": 0.00
+                    }
+                ]
+            },
+            "Incorrect_Transfers":{
+                "Transfers_Amount": 0.00,
+                "Transfers":[
+                    {  
+                    "Payer":{
+                        "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                        "Name": "imie nazwisko",
+                        "Address": "adres odbiorcy"
+                    },
+                    "Recipient":{
+                        "Account_Number": "SK BBBB BBBB 0000 0000 0000 0000",
+                        "Name": "imie nazwisko",
+                        "Address": "adres odbiorcy"
+                    },
+                    "Title":"tytuł przelewu",
+                    "Transfer_Amount": 0.00
+                    }
+                ]
+            }
         }
         ```
     1. Weryfikacja czy numer konta zleceniodawcy jest zgodny z numerem konta banku.
