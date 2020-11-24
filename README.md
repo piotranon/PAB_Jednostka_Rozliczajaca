@@ -22,7 +22,7 @@ Bochaczyk Krzysztof, Bury Karol, Dyndał Patryk, Długosz Piotr, Filar Kamil
         ```json
             {
                 "Bank_Info":{
-                    "Bank_Number":"SK BBBB",
+                    "Bank_Number":"BBBB BBBB",
                     "Total_Transfer_Amount":0.00
                 },
                 "Outgoing_Transfers":{
