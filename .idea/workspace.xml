@@ -22,6 +22,7 @@
     <list default="true" id="ed3f948c-5172-47d6-afce-3c38694e55eb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/database/migrations/2020_12_01_174145_create_outgoing_transfers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/database/migrations/2020_12_01_174145_create_outgoing_transfers_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/database/migrations/2020_12_01_184058_create_banks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/database/migrations/2020_12_01_184058_create_banks_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,11 +146,15 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1l49w4zrbJskzC80OR37lKuZkRp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -181,7 +186,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1606845732358</updated>
-      <workItem from="1606845733646" duration="2233000" />
+      <workItem from="1606845733646" duration="4080000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel, In- and OutgoingTransfer Models, Factories, Migrations, Seeders and Controllers">
       <created>1606846966372</created>
@@ -190,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606846966372</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added Bank Model package.">
+      <created>1606848124919</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606848124919</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,8 +220,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Added Laravel, In- and OutgoingTransfer Models, Factories, Migrations, Seeders and Controllers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Laravel, In- and OutgoingTransfer Models, Factories, Migrations, Seeders and Controllers" />
+    <MESSAGE value="Added Bank Model package." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Bank Model package." />
   </component>
   <component name="WindowStateProjectService">
     <state x="-140" y="-901" width="1092" height="729" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606846244095">
@@ -220,22 +234,22 @@
       <screen x="-554" y="-1080" width="1920" height="1050" />
     </state>
     <state x="186" y="-782" key="FileChooserDialogImpl/0.0.1366.738/1366.-902.1920.1050/-554.-1080.1920.1050@-554.-1080.1920.1050" timestamp="1606846232587" />
-    <state width="1877" height="285" key="GridCell.Tab.0.bottom" timestamp="1606846913791">
+    <state width="1877" height="285" key="GridCell.Tab.0.bottom" timestamp="1606853647667">
       <screen x="-554" y="-1080" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.bottom/0.0.1366.738/1366.-902.1920.1050/-554.-1080.1920.1050@-554.-1080.1920.1050" timestamp="1606846913791" />
-    <state width="1877" height="285" key="GridCell.Tab.0.center" timestamp="1606846913791">
+    <state width="1877" height="285" key="GridCell.Tab.0.bottom/0.0.1366.738/1366.-902.1920.1050/-554.-1080.1920.1050@-554.-1080.1920.1050" timestamp="1606853647667" />
+    <state width="1877" height="285" key="GridCell.Tab.0.center" timestamp="1606853647666">
       <screen x="-554" y="-1080" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.center/0.0.1366.738/1366.-902.1920.1050/-554.-1080.1920.1050@-554.-1080.1920.1050" timestamp="1606846913791" />
-    <state width="1877" height="285" key="GridCell.Tab.0.left" timestamp="1606846913790">
+    <state width="1877" height="285" key="GridCell.Tab.0.center/0.0.1366.738/1366.-902.1920.1050/-554.-1080.1920.1050@-554.-1080.1920.1050" timestamp="1606853647666" />
+    <state width="1877" height="285" key="GridCell.Tab.0.left" timestamp="1606853647665">
       <screen x="-554" y="-1080" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.left/0.0.1366.738/1366.-902.1920.1050/-554.-1080.1920.1050@-554.-1080.1920.1050" timestamp="1606846913790" />
-    <state width="1877" height="285" key="GridCell.Tab.0.right" timestamp="1606846913791">
+    <state width="1877" height="285" key="GridCell.Tab.0.left/0.0.1366.738/1366.-902.1920.1050/-554.-1080.1920.1050@-554.-1080.1920.1050" timestamp="1606853647665" />
+    <state width="1877" height="285" key="GridCell.Tab.0.right" timestamp="1606853647666">
       <screen x="-554" y="-1080" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.right/0.0.1366.738/1366.-902.1920.1050/-554.-1080.1920.1050@-554.-1080.1920.1050" timestamp="1606846913791" />
+    <state width="1877" height="285" key="GridCell.Tab.0.right/0.0.1366.738/1366.-902.1920.1050/-554.-1080.1920.1050@-554.-1080.1920.1050" timestamp="1606853647666" />
     <state x="-2" y="-823" key="Vcs.Push.Dialog.v2" timestamp="1606847617916">
       <screen x="-554" y="-1080" width="1920" height="1050" />
     </state>
