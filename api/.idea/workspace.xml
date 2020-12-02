@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6bafd914-82ba-4d2a-b8c2-bf3750ff295b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/incoming.schema.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/outgoing.schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.incoming.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.incoming.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.outgoing.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.outgoing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/api.incoming.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/api/api.incoming.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/api.outgoing.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/api/api.outgoing.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,8 +55,14 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\Users\PDyndal\Documents\GitHub\PAB_Jednostka_Rozliczajaca\api\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PDyndal\Documents\GitHub\PAB_Jednostka_Rozliczajaca\api\tests\api" />
+    </key>
   </component>
   <component name="RunManager" selected="npm.test">
     <configuration name="install" type="js.build_tools.npm" nameIsGenerated="true">
@@ -85,7 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1606858676360</updated>
       <workItem from="1606858677514" duration="8738000" />
-      <workItem from="1606943749050" duration="117000" />
+      <workItem from="1606943749050" duration="5293000" />
     </task>
     <task id="LOCAL-00001" summary="Added tests, started writing routes.">
       <created>1606866922587</created>
@@ -101,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606868793897</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added gitignore">
+      <created>1606943893646</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606943893646</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +147,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Added tests, started writing routes." />
     <MESSAGE value="Created incoming and outgoing endpoints. Created test for these endpoints.&#10;&#10;TODO: &#10;  - outgoing post should return incoming get&#10;  - make tests for new cases" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created incoming and outgoing endpoints. Created test for these endpoints.&#10;&#10;TODO: &#10;  - outgoing post should return incoming get&#10;  - make tests for new cases" />
+    <MESSAGE value="Added gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added gitignore" />
   </component>
 </project>

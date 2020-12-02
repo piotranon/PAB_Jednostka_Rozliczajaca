@@ -1,8 +1,12 @@
 var express = require('express');
 var router = express.Router();
+const mongoose = require('mongoose');
+const IncomingSchema = require('../schemas/incoming.schema');
+
+const IncomingModel = mongoose.model('Incoming_Transfer', IncomingSchema);
 
 /* GET all outgoing transfers */
-router.get('/incoming', (req, res) => {
+router.get('/', (req, res) => {
     const response = {
         "Total_Transfer_Amount":0.00,
         "Incoming_Transfers":{
@@ -48,7 +52,7 @@ router.get('/incoming', (req, res) => {
 });
 
 /* GET latest outgoing transfer for bank */
-router.get('/incoming/:bank_num', (req, res) => {
+router.get('/:bank_num', (req, res) => {
     const response = {
         "Total_Transfer_Amount":0.00,
         "Incoming_Transfers":{
@@ -94,7 +98,7 @@ router.get('/incoming/:bank_num', (req, res) => {
 });
 
 /* POST new bank */
-router.post('/incoming/:bank_num', (req, res) => {
+router.post('/', (req, res) => {
     res.status(200).send('Done');
 });
 
