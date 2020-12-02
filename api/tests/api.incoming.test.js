@@ -41,7 +41,7 @@ describe('Test the outgoing endpoint', () => {
             .get('/api/v1/transfers/incoming/')
             .query({bank: bankNum})
             .then(res => {
-                expect(Object.keys(res.body)).toBe(['Total_Transfer_Amount', 'Incoming_Transfers', 'Incoming_Incorrect_Transfers']);
+                expect(Object.keys(res.body)).toStrictEqual(['Total_Transfer_Amount', 'Incoming_Transfers', 'Incoming_Incorrect_Transfers']);
                 done();
             });
     });
