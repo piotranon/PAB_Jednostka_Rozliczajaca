@@ -1,10 +1,12 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+
 const { Schema } = mongoose;
 
-const Outgoing_Transfers = new Schema({
+const Transfers_We_Are_Getting = new Schema({
     Bank_Info:  {
         Bank_Number: String,
         Total_Transfer_Amount: Number,
+        Last_Time_Request_Send: Date
     },
     Outgoing_Transfers: {
         Transfers_Amount: Number,
@@ -46,4 +48,4 @@ const Outgoing_Transfers = new Schema({
     }
 });
 
-module.exports = Outgoing_Transfers;
+module.exports = Transfers_We_Are_Getting;

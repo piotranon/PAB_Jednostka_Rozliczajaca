@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
-const OutgoingSchema = require('../schemas/outgoing.schema');
+const OutgoingSchema = require('../schemas/get_transfer.schema');
 
-const OutgoingModel = mongoose.model('Incoming_Transfer', OutgoingSchema);
+const OutgoingModel = mongoose.model('Outgoing_Transfer', OutgoingSchema);
 
 /* GET all outgoing transfers */
 router.get('/', (req, res) => {

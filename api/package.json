@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "SET DEBUG=api:* & node ./bin/www",
+    "start": "SET DEBUG=api:* & nodemon ./bin/www",
     "test": "jest"
   },
   "dependencies": {
@@ -13,9 +13,11 @@
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
+    "iban": "0.0.14",
     "jest": "^26.6.3",
     "mongoose": "^5.11.1",
     "morgan": "~1.9.1",
+    "nodemon": "^2.0.6",
     "superagent": "^6.1.0",
     "supertest": "^6.0.1"
   }

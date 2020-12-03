@@ -35,7 +35,7 @@ describe('Test the outgoing endpoint', () => {
             });
     });
 
-    test("It should respond with object with keys: 'Bank_Info', 'Outgoing_Transfers', 'Outgoing_Incorrect_Transfers' ", done => {
+    test("It should respond with object with keys: 'Bank_Info', 'Incoming_Transfers', 'Incoming_Incorrect_Transfers' ", done => {
         const bankNum = 'AAAA AAAA';
         request(app)
             .get('/api/v1/transfers/incoming/')
