@@ -182,11 +182,13 @@ Bochaczyk Krzysztof, Bury Karol, Dyndał Patryk, Długosz Piotr, Filar Kamil
 
 6. zapis przelewów poprawnych (wszystkich poprawnych)
 	1. Iterujemy po wszystkich przelewach poprawnych
-		1. przypisujemy wszystkie przelewy poprawne do konta przelewów obciążenia (status = 1 ["zapisano"])
+		1. przypisujemy przelew do konta przelewów obciążeń (status = 1 ["zapisano"])
+		1. szukamy banku odbiorcy danego przelewu
+			1. przypisujemy przelew do przelewow uznania banku docelowego (status=1)
 
 7. zapis przelewów błędnych (wszysytkich błędnych)
 	1. Iterujemy po wszystkich przelewach błędnych
-
+		1. Zmieniamy status przelewu w przelewach uznania banku z ktorego wracaja przelewy. (status = 3["zawrocono"]) 
 		1. Szukamy banku nadawcy po numerze banku z numeru konta nadawcy;
 		2. Szukamy przelewu w przelewach obciazenia danego banku;
 			1. zmieniamy mu status na (status = 3["zawrocono"]) 
