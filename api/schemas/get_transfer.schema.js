@@ -48,4 +48,4 @@ const Transfers_We_Are_Getting = new Schema({
     }
 });
 
-module.exports = Transfers_We_Are_Getting;
+module.exports = mongoose.model('GetTransfer', Transfers_We_Are_Getting);

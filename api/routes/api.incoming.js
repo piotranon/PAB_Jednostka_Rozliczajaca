@@ -3,91 +3,54 @@ var router = express.Router();
 const mongoose = require('mongoose');
 const PostSchema = require('../schemas/post_transfer.schema');
 const Outgoing_Transfers = require('../schemas/get_transfer.schema');
-const IncomingModel = mongoose.model('Incoming_Transfer', PostSchema);
-const BankClass = require('../classes/bank.class');
-const Bank = require('../schemas/bank.schema');
+const Bank = require('../classes/bank.class');
+const SubTransfer = require('../classes/subtransfer.class');
+const bankModel = require('../schemas/bank.schema');
 
-const IBANValidator = (Account_Number)=>{
-    Account_Number = Account_Number.replaceAll(' ', '');
-    let accountNumber = Account_Number.substring(2)+"PL00";
-    let accountNumberArray = [];
-    accountNumber.split('').forEach( item => {
-        if (item.match(/[A-Z]/)) {
-            accountNumberArray.push(item.charCodeAt(0)-55);
-        }
-        accountNumberArray.push(item);
-    });
-    number = accountNumberArray.join("");
-    divided = 98-(parseInt(number)%97);
-    if(divided<10)
+const IBANValidator = (accountNumber)=>{
+  let controllSum = accountNumber.substr(2,2);
+  accountNumber=accountNumber.substr(4)+"252100";
+  let value = 98-mod97(accountNumber);
+  if(value<10)
+    value="0"+value.toString();
+  else
+    value=value.toString();
+  return controllSum.localeCompare(value)==0;
+}
+const mod97 = (accountNumber)=>{
+  let modulo=0;
+  for(i=0;i<accountNumber.length;i++)
     {
-        divided = "0"+divided.toString();
-    }else
-    {
-        divided = divided.toString();
+      modulo= parseInt(modulo+accountNumber.substr(i,1))%97;
     }
-
-    if(divided == Account_Number.substring(0,2))
-    {
-        return true;
-    }
-    return false;
-};
-
-const validateBankControllSum = (bankNumber) =>{
-    let sum=parseInt(bankNumber[0])*3+parseInt(bankNumber[1])*9+parseInt(bankNumber[2])*7+parseInt(bankNumber[3])*1+parseInt(bankNumber[4])*3+parseInt(bankNumber[5])*9+parseInt(bankNumber[6])*7;
-    sum = sum%10;
-  
-    if(sum!=0)
-        sum = 10-sum;
-    sum=sum.toString();
-  
-    return bankNumber[7].localeCompare(sum)==0;
+  return modulo;
 }
 
-
-router.post('/test',(req, res) => {
-    const Outgoing_Transfers = req.body.Outgoing_Transfers;
-    const Outgoing_Incorrect_Transfers = req.body.Outgoing_Incorrect_Transfers;
-    const bankInfo = req.body.Bank_Info;
-
-    console.log(bankInfo.Bank_Nubmer);
-    Bank.checkIfExistOrCreate(bankInfo.Bank_Number)
-    .then(docs => {
-        console.log("mamy to!: ",docs);
-        res.json(docs);
-    })
-    .catch(err => {
-        console.error("error ", err);
-        return reject(err);
-    })
-});
 
 /* Post all incoming transfers */
 router.post('/', (req, res) => {
     // incoming transfers 
     const Outgoing_Transfers = req.body.Outgoing_Transfers;
     const Outgoing_Incorrect_Transfers = req.body.Outgoing_Incorrect_Transfers;
-    const Bank = req.body.Bank_Info;
+
+    // ==============   1  ===================
+    const bank = new Bank(req.body.Bank_Info.Bank_Number);
     
-    
+    bank=bank.checkIfExist();
+    if(bank===null)
     {
-        if(!validateBankControllSum(Bank.Bank_Number))
-        {
-            const resJson = {
+        const resJson = {
                 error : {
                     message: "Invalid control sum of Bank.BANK_NUMBER",
+                    details: bank.toJSON
                 }
             }
-            return res.status(422).json(resJson);
-        }        
-        // obliczyc sume kontrolna danego banku i zapisac go
-        // create bank
-        // create account 1 (obciażeń)
-        // create account 2 (uznań)
+        return res.status(422).json(resJson);
     }
-    
+
     // new transfers + returned transfers sum validation
+    // ==============   2  ===================
+
     if(Outgoing_Transfers.Transfers_Amount+Outgoing_Incorrect_Transfers.Transfers_Amount!=Bank.Total_Transfer_Amount)
     {
         const resJson = {
@@ -98,8 +61,9 @@ router.post('/', (req, res) => {
         return res.status(422).json(resJson);
     }
 
-    // new transfers amount validation
-    {
+    // new transfers total validation
+    // ==============   3  ===================
+    
         let totalAmount=0;
         Outgoing_Transfers.Transfers.forEach(transfer => {
             totalAmount+=transfer.Transfer_Amount;
@@ -112,12 +76,13 @@ router.post('/', (req, res) => {
                     message: "Sum of Outgoing_Transfers.Transfers.Transfer_Amount are invalid with Outgoing_Transfers.Transfers_Amount",
                 }
             }
-        return res.status(422).json(resJson);
+            return res.status(422).json(resJson);
         }
-    }
+    
 
-    // returned transfers
-    {
+    // returned transfers total validation
+    // ==============   4  ===================
+    
         let totalAmount=0;
         Outgoing_Incorrect_Transfers.Transfers.forEach(transfer => {
             totalAmount+=transfer.Transfer_Amount;
@@ -132,18 +97,105 @@ router.post('/', (req, res) => {
             }
         return res.status(422).json(resJson);
         }
-    }
+    
+    // ==============   5  ===================
 
-    // validation of transfers
-    {
+        // validation of transfers
         Outgoing_Transfers.Transfers.forEach(transfer => {
-            // porownanie z banku w pamieci z transfer.Payer.Account_Number.
+            
+            if(bank.getBankNumber()!=transfer.Payer.Account_Number.substr(2,8))
+            {
+                const resJson = {
+                error : {
+                    message: "Transfer Payer.Account_Number is invalid with a bank number from which was send.",
+                    details: transfer.Payer.Account_Number
+                    }
+                }
+                return res.status(422).json(resJson);
+            }
+            if(!IBANValidator(transfer.Payer.Account_Number))
+            {
+                const resJson = {
+                error : {
+                    message: "IBAN of Payer.Account_Number is invalid.",
+                    details: transfer.Payer.Account_Number
+                    }
+                }
+                return res.status(422).json(resJson);
+            }
+            // sprawdzenie czy bank odbiorcy istnieje u nas transfer.
+            const bankRecipient = new Bank(transfer.Recipient.Account_Number);
+            
+            if(bankRecipient.checkIfExist() === null)
+            {
+                const resJson = {
+                error : {
+                    message: "Recipient Bank does not exist in our system.",
+                    details: transfer.Recipient.Account_Number
+                    }
+                }
+                return res.status(422).json(resJson);
+            }
+            
+            if(!IBANValidator(transfer.Recipient.Account_Number))
+            {
+               const resJson = {
+                error : {
+                    message: "IBAN of Recipient.Account_Number is invalid.",
+                    details: transfer.Recipient.Account_Number
+                    }
+                }
+                return res.status(422).json(resJson); 
+            }
         });
 
-    }
+        Outgoing_Incorrect_Transfers.Transfers.forEach(transfer => {
+            if (bank.getBankNumber()!=transfer.Recipient.Account_Number.substr(2, 8)) {
+                const resJson = {
+                    error : {
+                        message: "Transfer Recipient.Account_Number is invalid with a bank number from which was send.",
+                        details: transfer.Recipient.Account_Number
+                        }
+                    }
+                    return res.status(422).json(resJson);
+            }
+            if(!IBANValidator(transfer.Recipient.Account_Number))
+            {
+                const resJson = {
+                error : {
+                    message: "IBAN of Recipient.Account_Number is invalid.",
+                    details: transfer.Recipient.Account_Number
+                    }
+                }
+                return res.status(422).json(resJson);
+            }
+        });
 
+    // ==============   6  ===================
 
-    console.log(req.body);
+    Outgoing_Transfers.Transfers.foreach(transfer=>{
+        bank.getAccount().newOutgoingTransfer(
+            new SubTransfer(transfer.Payer, transfer.Recipient, transfer.Title, transfer.Transfer_Amount, 1)
+        );
+
+        bank.saveBank();
+        
+        RecipientBank = new Bank(transfer.Recipient.Account_Number.substr(2,8)).checkIfExist();
+        
+        RecipientBank.getAccount().newIncomingTransfer(
+            new SubTransfer(transfer.Payer, transfer.Recipient, transfer.Title, transfer.Transfer_Amount, 1)
+        );
+    });
+    // ==============   7  ===================
+
+    Outgoing_Incorrect_Transfers.foreach(transfer =>{
+        const bankTransfersOutgoing = bankModel.findOne({Bank_Number: transfer.Recipient.Account_Number.substr(2, 8)});
+        let subTrans = new SubTransfer(transfer.Payer, transfer.Recipient, transfer.Title, transfer.Transfer_Amount, 1);
+        transferUpdate = bankTransfersOutgoing.getAccount().getOutgoing_Transfers().find(transferInCorr => transferInCorr === subTrans);
+        transferUpdate.Status = 3;
+        bankTransfersOutgoing.saveBank();
+        //zmienic objekt w przelewach uznania banku
+    }) 
 
     // let Bank = new BankSchema(req.body.Bank_Info.Bank_Number, req.body.Bank_Info.Total_Transfer_Amount);
     // const bank = new BankSchema();
@@ -152,15 +204,7 @@ router.post('/', (req, res) => {
 
     // BankSchema.checkIfExist(req.body[0].Bank_Info.Bank_Number);
     
-    Bank.checkIfExistOrCreate(req.body.Bank_Info.Bank_Number)
-    .then(docs => {
-        console.log("mamy to!: ",docs);
-        res.json(docs);
-    })
-    .catch(err => {
-        console.error(err);
-        return reject(err);
-    })
+
     
     // if()
     // {

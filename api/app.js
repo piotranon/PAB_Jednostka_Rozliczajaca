@@ -14,6 +14,10 @@ mongoose.connect('mongodb://localhost/bank', {
     useNewUrlParser: true,
 });
 
+exports.test = function(req,res) {
+  console.log(res)
+};
+
 var incomingRouter = require('./routes/api.incoming');
 var outgoingRouter = require('./routes/api.outgoing');
 var bankRouter = require('./routes/api.bank');

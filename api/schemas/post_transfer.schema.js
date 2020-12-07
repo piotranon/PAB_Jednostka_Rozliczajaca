@@ -44,4 +44,4 @@ const Transfers_To_Return = new Schema({
     }
 });
 
-module.exports = Transfers_To_Return;
+module.exports = mongoose.model('ReturnTransfer', Transfers_To_Return);
