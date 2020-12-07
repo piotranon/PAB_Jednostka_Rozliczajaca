@@ -8,30 +8,25 @@ const bankSchema = new mongoose.Schema([
   },
 ]);
 
-bankSchema.methods.checkIfExistOrCreate =function(incomingBankNumber) {
-  console.log("elo" + this);
-  const bankExist =mongoose.model("Bank").find({ Bank_Number: incomingBankNumber })
-  .exec()
-  .then( data => {
-    console.log("hmmm ",data);
-    console.log("xddd   ", bankExist);
-    if (bankExist) throw new Error;
-  })
-  .catch( err => {
-    console.error(err);
-  })
-  .then(data => {
-    const bankNew =  new bankSchema({
-      Bank_Number: incomingBankNumber,
-      Total_Transfer_Amount: 0,
-      Bank_Transfers: [],
+bankSchema.statics.checkIfExistOrCreate = function (incomingBankNumber) {
+  return new Promise((resolve, reject) => {
+    this.find({ Bank_Number: incomingBankNumber }, (error, docs) => {
+      if (error) {
+        console.error(error);
+
+        const bankNew = new bankSchema({
+          Bank_Number: incomingBankNumber,
+          Total_Transfer_Amount: 0,
+          Bank_Transfers: []
+        });
+
+        const bank = bankNew.save();
+
+        resolve(bank);
+      }
+      resolve(docs);
     });
-    const bank =  bankNew.create();
-  })
-  .catch(err => {
-    console.log(err);
   });
 };
-
 
 module.exports = mongoose.model("Bank", bankSchema);

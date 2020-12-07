@@ -5,7 +5,7 @@ const PostSchema = require('../schemas/post_transfer.schema');
 const Outgoing_Transfers = require('../schemas/get_transfer.schema');
 const IncomingModel = mongoose.model('Incoming_Transfer', PostSchema);
 const BankClass = require('../classes/bank.class');
-const BankSchema = require('../schemas/bank.schema');
+const Bank = require('../schemas/bank.schema');
 
 const IBANValidator = (Account_Number)=>{
     Account_Number = Account_Number.replaceAll(' ', '');
@@ -34,21 +34,134 @@ const IBANValidator = (Account_Number)=>{
     return false;
 };
 
+const validateBankControllSum = (bankNumber) =>{
+    let sum=parseInt(bankNumber[0])*3+parseInt(bankNumber[1])*9+parseInt(bankNumber[2])*7+parseInt(bankNumber[3])*1+parseInt(bankNumber[4])*3+parseInt(bankNumber[5])*9+parseInt(bankNumber[6])*7;
+    sum = sum%10;
+  
+    if(sum!=0)
+        sum = 10-sum;
+    sum=sum.toString();
+  
+    return bankNumber[7].localeCompare(sum)==0;
+}
+
+
+router.post('/test',(req, res) => {
+    const Outgoing_Transfers = req.body.Outgoing_Transfers;
+    const Outgoing_Incorrect_Transfers = req.body.Outgoing_Incorrect_Transfers;
+    const bankInfo = req.body.Bank_Info;
+
+    console.log(bankInfo.Bank_Nubmer);
+    Bank.checkIfExistOrCreate(bankInfo.Bank_Number)
+    .then(docs => {
+        console.log("mamy to!: ",docs);
+        res.json(docs);
+    })
+    .catch(err => {
+        console.error("error ", err);
+        return reject(err);
+    })
+});
 
 /* Post all incoming transfers */
 router.post('/', (req, res) => {
     // incoming transfers 
     const Outgoing_Transfers = req.body.Outgoing_Transfers;
     const Outgoing_Incorrect_Transfers = req.body.Outgoing_Incorrect_Transfers;
+    const Bank = req.body.Bank_Info;
+    
+    
+    {
+        if(!validateBankControllSum(Bank.Bank_Number))
+        {
+            const resJson = {
+                error : {
+                    message: "Invalid control sum of Bank.BANK_NUMBER",
+                }
+            }
+            return res.status(422).json(resJson);
+        }        
+        // obliczyc sume kontrolna danego banku i zapisac go
+        // create bank
+        // create account 1 (obciażeń)
+        // create account 2 (uznań)
+    }
+    
+    // new transfers + returned transfers sum validation
+    if(Outgoing_Transfers.Transfers_Amount+Outgoing_Incorrect_Transfers.Transfers_Amount!=Bank.Total_Transfer_Amount)
+    {
+        const resJson = {
+                error : {
+                    message: "Sum of Outgoing_Transfers and Outgoing_Incorrect_Transfers are invalid with Bank.Total_Transfer_Amount",
+                }
+            }
+        return res.status(422).json(resJson);
+    }
+
+    // new transfers amount validation
+    {
+        let totalAmount=0;
+        Outgoing_Transfers.Transfers.forEach(transfer => {
+            totalAmount+=transfer.Transfer_Amount;
+        });
+
+        if(totalAmount!=Outgoing_Transfers.Transfers_Amount)
+        {
+            const resJson = {
+                error : {
+                    message: "Sum of Outgoing_Transfers.Transfers.Transfer_Amount are invalid with Outgoing_Transfers.Transfers_Amount",
+                }
+            }
+        return res.status(422).json(resJson);
+        }
+    }
+
+    // returned transfers
+    {
+        let totalAmount=0;
+        Outgoing_Incorrect_Transfers.Transfers.forEach(transfer => {
+            totalAmount+=transfer.Transfer_Amount;
+        });
+
+        if(totalAmount!=Outgoing_Incorrect_Transfers.Transfers_Amount)
+        {
+            const resJson = {
+                error : {
+                    message: "Sum of Outgoing_Incorrect_Transfers.Transfers.Transfer_Amount are invalid with Outgoing_Incorrect_Transfers.Transfers_Amount",
+                }
+            }
+        return res.status(422).json(resJson);
+        }
+    }
+
+    // validation of transfers
+    {
+        Outgoing_Transfers.Transfers.forEach(transfer => {
+            // porownanie z banku w pamieci z transfer.Payer.Account_Number.
+        });
+
+    }
+
+
     console.log(req.body);
 
     // let Bank = new BankSchema(req.body.Bank_Info.Bank_Number, req.body.Bank_Info.Total_Transfer_Amount);
-    const bank = new BankSchema();
+    // const bank = new BankSchema();
     // const bank2 = BankSchema.findOne({Bank_Number: req.body.Bank_Info.Bank_Number}).exec();
     // console.log(bank2);
 
     // BankSchema.checkIfExist(req.body[0].Bank_Info.Bank_Number);
-    const DBbank = bank.checkIfExistOrCreate(req.body.Bank_Info.Bank_Number)
+    
+    Bank.checkIfExistOrCreate(req.body.Bank_Info.Bank_Number)
+    .then(docs => {
+        console.log("mamy to!: ",docs);
+        res.json(docs);
+    })
+    .catch(err => {
+        console.error(err);
+        return reject(err);
+    })
+    
     // if()
     // {
     //     console.log("Nie ma takiego banku")
