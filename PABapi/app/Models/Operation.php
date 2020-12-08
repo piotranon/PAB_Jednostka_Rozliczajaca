@@ -19,9 +19,12 @@ class Operation extends Model
         'type',
         'payer_account_number',
         'recipient_account_number',
-        'amount',
+        'amount'
+    ];
+
+    protected $hidden = [
         'status_id',
-        'account_id',
+        'account_id'
     ];
 
     protected function serializeDate(DateTimeInterface $date)

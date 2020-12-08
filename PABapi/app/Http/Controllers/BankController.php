@@ -14,8 +14,19 @@ use App\Models\Bank;
 use App\Models\Operation;
 use App\Models\Account;
 
-class BankSessionController extends Controller
+class BankController extends Controller
 {
+    public function getAllBanks()
+    {
+        $Bank = Bank::all();
+        return response()->json($Bank, 200);
+    }
+
+    public function getBank($bankNumber)
+    {
+        $Bank = Bank::firstWhere('bank_number', $bankNumber)->with('accountAll')->first();
+        return response()->json($Bank, 200);
+    }
 
     public function postSession(Request $request)
     {
@@ -54,8 +65,7 @@ class BankSessionController extends Controller
         foreach ($OutgoingTransfers["Transfers"] as $Transfer) {
             $Total += $Transfer['Transfer_Amount'];
         }
-
-        if ($Total !== $BankRequest["Total_Transfer_Amount"])
+        if ($Total != $OutgoingTransfers["Transfers_Amount"])
             return response()->json(["error" => ["message" => "Total_Transfer_Amount is not equal to Transfers_Amount sum of OutgoingTransfers."]], 422);
 
         // ============================== 4 =============================
@@ -65,7 +75,7 @@ class BankSessionController extends Controller
             $Total_Incorrect += $Transfer["Transfer_Amount"];
         }
 
-        if ($Total_Incorrect !== $BankRequest["Total_Transfer_Amount"])
+        if ($Total_Incorrect != $Outgoing_Incorrect_Transfers["Transfers_Amount"])
             return response()->json(["error" => ["message" => "Total_Transfer_Amount is not equal to Transfers_Amount sum of OutgoingIncorrectTransfers."]], 422);
 
         // ============================== 5 =============================
@@ -99,25 +109,24 @@ class BankSessionController extends Controller
             $Operation2->payer_account_number = $Transfer['Payer']['Account_Number'];
             $Operation2->recipient_account_number = $Transfer['Recipient']['Account_Number'];
             $Operation2->amount = $Transfer['Transfer_Amount'];
-            $Operation2->type = 1;   // operacja obciazenia
+            $Operation2->type = 2;   // operacja uznania
             $Operation2->status_id = 1; // Ustawiamy status 'zapisano'
             $Operation2->account_id = $RecipientBank->accountAll->id;
             $Operation2->save();
+            // return response()->json(["op" => $Operation, "op2" => $Operation2], 422);
         }
 
 
         // ============================== 7 =============================
+        // $xd = $Bank->accountAll->operations->where('type', 2);
 
         foreach ($Outgoing_Incorrect_Transfers["Transfers"] as $IncorrectTransfer) {
             $Operation = $Bank->accountAll->operations
-                ->where(
-                    [
-                        ['type' => 2],
-                        ['payer_account_number' => $IncorrectTransfer["Payer"]["Account_Number"]],
-                        ['recipient_account_number' => $IncorrectTransfer["Recipient"]["Account_Number"]],
-                        ['amount' => $IncorrectTransfer["Transfer_Amount"]]
-                    ]
-                )->get();
+                ->where('type', 2)
+                ->where('payer_account_number', $IncorrectTransfer["Payer"]["Account_Number"])
+                ->where('recipient_account_number', $IncorrectTransfer["Recipient"]["Account_Number"])
+                ->where('amount', $IncorrectTransfer["Transfer_Amount"]);
+            return response()->json($Operation, 300);
             $Operation->status_id = 3;
             $Operation->save();
 
@@ -127,21 +136,27 @@ class BankSessionController extends Controller
                 ->where('type', 1)
                 ->where('payer_account_number', $IncorrectTransfer["Payer"]["Account_Number"])
                 ->where('recipient_account_number', $IncorrectTransfer["Recipient"]["Account_Number"])
-                ->where('amount', $IncorrectTransfer["Transfer_Amount"])->get();
+                ->where('amount', $IncorrectTransfer["Transfer_Amount"]);
             $Operation->status_id = 3;
             $Operation->save();
         };
 
         // ============================== 8 =============================
 
-        $OperationsToBank = $Bank->accountAll->operations->where('status_id', 1)->get();
+        // operations to Bank
+        $Total = 0;
+        $OperationsToBank = $Bank->accountAll->operations->where('status_id', 1)->where('type', 2);
         foreach ($OperationsToBank as $Operation) {
+            $Total += $Operation->amount;
             $Operation->status_id = 2;
             $Operation->save();
         }
 
-        $OperationsToBankInvalid = $Bank->accountAll->operations->where('status_id', 3)->get();
+        // operation returned to Bank
+        $Total_Incorrect = 0;
+        $OperationsToBankInvalid = $Bank->accountAll->operations->where('status_id', 3)->where('type', 1);
         foreach ($OperationsToBankInvalid as $Operation) {
+            $Total_Incorrect += $Operation->amount;
             $Operation->status_id = 4;
             $Operation->save();
         }

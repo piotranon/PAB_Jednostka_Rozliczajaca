@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\BankSessionController;
+use App\Http\Controllers\BankController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/session', [BankSessionController::class, 'postSession']);
+Route::post('/session', [BankController::class, 'postSession']);
+Route::get('/', [BankController::class, 'getAllBanks']);
+Route::get('/{bankNumber}', [BankController::class, 'getBank']);
