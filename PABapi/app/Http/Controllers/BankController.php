@@ -13,6 +13,7 @@ use Exception;
 use App\Models\Bank;
 use App\Models\Operation;
 use App\Models\Account;
+use Illuminate\Support\Facades\Redis;
 
 class BankController extends Controller
 {
@@ -28,6 +29,20 @@ class BankController extends Controller
         return response()->json($Bank, 200);
     }
 
+    public function postBank(Request $request)
+    {
+        // $request->validate("bank_number")
+
+        $Bank = new Bank(["bank_number" => $request['Bank_Number']]);
+        $Bank->save();
+
+        $account = new Account(["account_number" => $this->generateBankAccountNumber($request['Bank_Number'])]);
+        $account->bank_id = $Bank->id;
+        $account->save();
+
+        return response()->json($Bank->with('accountAll')->first(), 200);
+    }
+
     public function postSession(Request $request)
     {
         $BankRequest = $request['Bank_Info'];
@@ -41,7 +56,7 @@ class BankController extends Controller
             if ($this->verifyBankAccountNumber($BankRequest['Bank_Number'])) {
                 $Bank = new Bank(["bank_number" => $BankRequest['Bank_Number']]);
                 $Bank->save();
-                $account = new Account(["account_number" => $BankRequest['Bank_Number']]);
+                $account = new Account(["account_number" => $this->generateBankAccountNumber($BankRequest['Bank_Number'])]);
                 $account->bank_id = $Bank->id;
                 $account->save();
                 $Bank = Bank::where('bank_number', $BankRequest['Bank_Number'])->with('accountAll')->first();
@@ -113,7 +128,6 @@ class BankController extends Controller
             $Operation2->status_id = 1; // Ustawiamy status 'zapisano'
             $Operation2->account_id = $RecipientBank->accountAll->id;
             $Operation2->save();
-            // return response()->json(["op" => $Operation, "op2" => $Operation2], 422);
         }
 
 
@@ -280,5 +294,14 @@ class BankController extends Controller
         if ($bank !== null)
             return true;
         return false;
+    }
+
+    private function generateBankAccountNumber($bankAccountNumber)
+    {
+        $bankAccount = "PL" . $bankAccountNumber . "0000000000000000";
+
+        $controllSum = bcmod($this->innerValidateAccountNumber($bankAccountNumber), "97");
+
+        return $controllSum . $bankAccountNumber . "0000000000000000";
     }
 }

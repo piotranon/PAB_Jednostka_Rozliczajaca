@@ -23,3 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/session', [BankController::class, 'postSession']);
 Route::get('/', [BankController::class, 'getAllBanks']);
 Route::get('/{bankNumber}', [BankController::class, 'getBank']);
+Route::post('/add', [BankController::class, 'postBank']);

@@ -19,10 +19,7 @@ class Operation extends Model
         'type',
         'payer_account_number',
         'recipient_account_number',
-        'amount'
-    ];
-
-    protected $hidden = [
+        'amount',
         'status_id',
         'account_id'
     ];

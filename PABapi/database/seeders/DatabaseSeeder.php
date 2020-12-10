@@ -28,15 +28,14 @@ class DatabaseSeeder extends Seeder
             'name' => "zakonczono",
         ]);
 
-        DB::table('banks')->insert([
-            'name' => Str::random(10),
-            'bank_number' => "10902402"
-        ]);
+        // DB::table('banks')->insert([
+        //     'name' => Str::random(10),
+        //     'bank_number' => "10902402"
+        // ]);
 
-
-        DB::table('accounts')->insert([
-            'account_number' => "10902402",
-            'bank_id' => 1
-        ]);
+        // DB::table('accounts')->insert([
+        //     'account_number' => "10902402",
+        //     'bank_id' => 1
+        // ]);
     }
 }
