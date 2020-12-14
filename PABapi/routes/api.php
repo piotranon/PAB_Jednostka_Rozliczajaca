@@ -20,7 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/session', [BankController::class, 'postSession']);
-Route::get('/', [BankController::class, 'getAllBanks']);
-Route::get('/{bankNumber}', [BankController::class, 'getBank']);
-Route::post('/add', [BankController::class, 'postBank']);
+Route::get('/operations', [BankController::class, 'getAllOperations']);
+
+Route::get('/banks', [BankController::class, 'getAllBanks']);
+Route::get('/banks/{id}', [BankController::class, 'getBank']);
+Route::post('/banks/add', [BankController::class, 'postBank']);
+Route::post('/banks/session', [BankController::class, 'postSession']);

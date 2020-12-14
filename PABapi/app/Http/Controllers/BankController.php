@@ -23,10 +23,16 @@ class BankController extends Controller
         return response()->json($Bank, 200);
     }
 
-    public function getBank($bankNumber)
+    public function getBank($id)
     {
-        $Bank = Bank::firstWhere('bank_number', $bankNumber)->with('accountAll')->first();
-        return response()->json($Bank, 200);
+        $Bank = Bank::firstOrFail('id', $id);
+        return response()->json($Bank->with('accountAll')->first(), 200);
+    }
+
+    public function getAllOperations()
+    {
+        $Transfers = Operation::all();
+        return response()->json($Transfers, 200);
     }
 
     public function postBank(Request $request)
