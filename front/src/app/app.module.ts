@@ -7,6 +7,9 @@ import { BanksListComponent } from './banks-list/banks-list.component';
 import { BankDetailsComponent } from './bank-details/bank-details.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -14,11 +17,13 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
     BanksListComponent,
     BankDetailsComponent,
     TransactionListComponent,
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    TopBarComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

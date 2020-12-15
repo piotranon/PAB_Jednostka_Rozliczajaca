@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <fa-icon routerLink="/" [icon]="faDollarSign" class="BankIcon"></fa-icon>
+    <a class="Title" href="#">Jednostka rozliczeniowa</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="d-md-flex d-block flex-row mx-md-auto mx-0">
+        <div class="collapse navbar-collapse mr-auto" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#">Lista transakcji</a>
+                <a class="nav-item nav-link" href="#">Lista banków</a>          
+            </div>
+        </div>
+    </div>
+  </nav>
+
+
+<!-- 
+    1. transaction-list   --- Lista wszystkich transakcji, lp, nr banku (8 cyferek), data transakcji?, ilośc hajsu całkowitego, przejście do transfer details, typ1 obciążenie, type2 uznaniowy
+    2. transfer-details --- wyświetlić jsona w zrozumiały sposób (z gita)
+    3. bank-list --- lista banków, lp, nazwa banku (czy są w bazie)?, nr banku, szczegóły banku - bank info tutaj pewnie Piotrka zapytamy co trzeba
+
+    Zrobić interfejsy*
+-->
