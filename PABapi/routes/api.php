@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\OperationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/operations', [BankController::class, 'getAllOperations']);
+Route::get('/operations', [OperationController::class, 'getAllOperations']);
 
 Route::get('/banks', [BankController::class, 'getAllBanks']);
 Route::get('/banks/{id}', [BankController::class, 'getBank']);

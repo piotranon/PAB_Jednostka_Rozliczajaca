@@ -29,12 +29,6 @@ class BankController extends Controller
         return response()->json($Bank->with('accountAll')->first(), 200);
     }
 
-    public function getAllOperations()
-    {
-        $Transfers = Operation::all();
-        return response()->json($Transfers, 200);
-    }
-
     public function postBank(Request $request)
     {
         // $request->validate("bank_number")

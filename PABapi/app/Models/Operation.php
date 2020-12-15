@@ -28,4 +28,14 @@ class Operation extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function account()
+    {
+        return $this->belongsTo(Bank::class);
+    }
 }

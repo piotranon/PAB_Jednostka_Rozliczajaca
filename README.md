@@ -4,13 +4,20 @@
 Bochaczyk Krzysztof, Bury Karol, Dyndał Patryk, Długosz Piotr, Filar Kamil
 
 ## Spis treści
+1. [Postman do API](https://github.com/piotranon/PAB_Jednostka_Rozliczajaca#postman-do-api)
 1. [Procesy biznesowe](https://github.com/piotranon/PAB_Jednostka_Rozliczajaca#procesy-biznesowe)
+1. [Struktura danych](https://github.com/piotranon/PAB_Jednostka_Rozliczajaca#struktura-danych)
+1. [Opis algorytmu sesji w postaci kroków](https://github.com/piotranon/PAB_Jednostka_Rozliczajaca#opis-algorytmu-sesji-w-postaci-krokow)
+
+## [Postman do API](https://documenter.getpostman.com/view/12136197/TVmS7vHe#04d1ae83-1a17-426f-8683-99c52850991b)
+
 
 ## Procesy biznesowe
 [<img src="./img/procesyBiznesowe.svg">](https://viewer.diagrams.net/?highlight=0000ff&edit=_blank&layers=1&nav=1&title=Untitled%20Diagram.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1CxdqwrclNktHwcE07UlyG85WAzIhZnhK%26export%3Ddownload)
 
 ## [Link do BPMN](https://viewer.diagrams.net/?highlight=0000ff&edit=_blank&layers=1&nav=1&title=Untitled%20Diagram.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1CxdqwrclNktHwcE07UlyG85WAzIhZnhK%26export%3Ddownload)
 
+## Struktura danych
 1. Rozliczanie płatności pomiędzy bankami.  
 
     Jednostka rozliczeniowa przyjmuję informację odnośnie banku, przelewów danego banku, natomiast zwraca dane odnośnie przelewów wykonanych do danego banku.

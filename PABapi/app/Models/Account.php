@@ -19,4 +19,9 @@ class Account extends Model
     {
         return $this->hasMany(Operation::class);
     }
+
+    public function operationsAll()
+    {
+        return $this->hasMany(Operation::class)->with(['status']);
+    }
 }

@@ -24,6 +24,6 @@ class Bank extends Model
     }
     public function accountAll()
     {
-        return $this->hasOne(Account::class)->with('operations');
+        return $this->hasOne(Account::class)->with('operationsAll');
     }
 }
