@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {faDollarSign} from '@fortawesome/free-solid-svg-icons';
+import {faCoins} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-top-bar',
@@ -7,7 +7,7 @@ import {faDollarSign} from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./top-bar.component.scss']
 })
 export class TopBarComponent implements OnInit {
-  faDollarSign = faDollarSign;
+  faCoins = faCoins;
 
   constructor() { }
 

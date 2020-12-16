@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {faListUl} from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-banks-list',
@@ -6,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./banks-list.component.scss']
 })
 export class BanksListComponent implements OnInit {
-
+  faListUl = faListUl;
+  
   constructor() { }
 
   ngOnInit(): void {
