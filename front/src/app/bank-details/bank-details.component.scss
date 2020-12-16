@@ -1,0 +1,65 @@
+.container{
+    margin-top: 2em;
+}
+
+.bank-details{
+    border: 3px solid orange;
+    background-color: rgb(80,80,80);
+    color: white;
+}
+.Subtitle{
+    font-size: 2em;
+    font-weight: 600;
+    text-align: center;
+    margin: 1em auto 1em auto;
+    color: orange;
+}
+.data{
+    text-decoration: none;
+    color: orange;
+}
+.bank-info{
+    margin-left: 2em;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+.bank-list{
+    border: 2px solid rgb(255, 197, 88);
+    background-color:  rgb(40,40,40) !important;;
+    text-align: center; 
+    margin: 0.5em;
+}
+
+.bank-list-header,
+.bank-list-item{
+    display: grid;
+    grid-template-columns: 1fr 6fr 6fr 4fr 4fr 4fr;
+    padding: 0.5em;
+    margin: auto;
+}
+
+.bank-list-header{
+    cursor: default;
+    
+}
+
+.bank-list-item{
+    background-color: rgb(65,65,65);
+    color: rgb(245,245,245);
+    font-size: 1.1em; 
+    border-top: 1px solid rgb(255, 197, 88);
+    border-bottom: 1px solid rgb(255, 197, 88);  
+}
+
+.bank-list-item:hover{
+    background-color:  rgb(100, 100, 100);
+    font-weight: bold;
+    cursor: pointer;
+}  
+
+.title-column{
+    color: orange;
+    font-weight: 600;
+    font-size: 1.3em;
+} 

@@ -2,8 +2,14 @@
 
     <div class="row justify-content-center">
         <div class="col-8 Subtitle text-center">
+            <fa-icon [icon]="faListOl" class="BankIcon"></fa-icon>
             Lista transakcji
-            <fa-icon [icon]="faListUl" class="BankIcon"></fa-icon>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-10 Input-Box">
+            <input type="text" class="search-input" />
         </div>
     </div>
 
@@ -13,38 +19,43 @@
                 Lp.
             </p>
             <p class="title-column">
-                Nr banku
+                Nr konta nadawcy
+            </p>
+            <p class="title-column">
+                Nr konta odbiorcy
             </p>
             <p class="title-column">
                 Data transakcji
             </p>
             <p class="title-column">
-                Saldo całkowite
+               Kwota
             </p>
             <p class="title-column">
-                +/-?
-                <!-- do zmiany -->
-            </p>
+                Status
+             </p>
         </div>
         
 
         <!-- rout żeby calośc prznosiła do transaction-details-->
-        <div class="transactions-list-item">
+        <div routerLink="/transaction-details" class="transactions-list-item">
             <p>
                 <!-- {{i+1}} -->
                 1
             </p>
             <p>
-                1234567890
+                65106000760000320000057153
+            </p>
+            <p>
+                34109024022245689732716282
             </p>
             <p>
                 16-12-2020
             </p>
             <p>
-                31 234 PLN
+               +200 PLN
             </p>
             <p>
-               +200 PLN
+               Odebrano
             </p>
     
         </div>
