@@ -1,0 +1,45 @@
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-8 Subtitle text-center">
+            <fa-icon [icon]="faListUl" class="BankIcon"></fa-icon>
+            Lista banków
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-10 Input-Box">
+            <input type="text" class="search-input" />
+        </div>
+    </div>
+    
+    <div class="banks-list">
+        <div class="banks-list-header">
+            <p class="title-column">
+                Lp.
+            </p>
+            <p class="title-column">
+                Nazwa banku
+            </p>
+            <p class="title-column">
+                Nr banku
+            </p>
+        </div>
+
+        <div  routerLink="/bank-details" class="banks-list-item"> <!-- PRZEJŚCIE NA SZTYWNO!-->
+            <p>
+                <!-- {{i+1}} -->
+                1
+            </p>
+            <p>
+                Nazwa banku
+            </p>
+            <p>
+                1234567890
+            </p>
+        </div>
+
+    </div>
+
+</div>
+   

@@ -1,0 +1,66 @@
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-8 Subtitle text-center">
+            <fa-icon [icon]="faListOl" class="BankIcon"></fa-icon>
+            Lista transakcji
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-10 Input-Box">
+            <input type="text" class="search-input" />
+        </div>
+    </div>
+
+    <div class="transactions-list">
+        <div class="transactions-list-header">
+            <p class="title-column">
+                Lp.
+            </p>
+            <p class="title-column">
+                Nr konta nadawcy
+            </p>
+            <p class="title-column">
+                Nr konta odbiorcy
+            </p>
+            <p class="title-column">
+                Data transakcji
+            </p>
+            <p class="title-column">
+               Kwota
+            </p>
+            <p class="title-column">
+                Status
+             </p>
+        </div>
+        
+
+        <!-- rout żeby calośc prznosiła do transaction-details-->
+        <div routerLink="/transaction-details" class="transactions-list-item">
+            <p>
+                <!-- {{i+1}} -->
+                1
+            </p>
+            <p>
+                65106000760000320000057153
+            </p>
+            <p>
+                34109024022245689732716282
+            </p>
+            <p>
+                16-12-2020
+            </p>
+            <p>
+               +200 PLN
+            </p>
+            <p>
+               Odebrano
+            </p>
+    
+        </div>
+
+    </div>
+
+</div>
+   
