@@ -12,7 +12,7 @@
             <input type="text" class="search-input" />
         </div>
     </div>
-    
+
     <div class="banks-list">
         <div class="banks-list-header">
             <p class="title-column">
@@ -26,20 +26,19 @@
             </p>
         </div>
 
-        <div  routerLink="/bank-details" class="banks-list-item"> <!-- PRZEJŚCIE NA SZTYWNO!-->
+        <div *ngFor="let bank of banks; index as i" [routerLink]="['/', 'bank-details', bank.id]" class="banks-list-item"> <!-- PRZEJŚCIE NA SZTYWNO!-->
             <p>
-                <!-- {{i+1}} -->
-                1
+                {{i+1}}
             </p>
             <p>
-                Nazwa banku
+                {{bank.name}}
             </p>
             <p>
-                1234567890
+                {{bank.bank_number}}
             </p>
         </div>
 
     </div>
 
 </div>
-   
+

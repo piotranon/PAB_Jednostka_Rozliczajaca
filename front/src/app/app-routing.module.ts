@@ -7,9 +7,9 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
 
 const routes: Routes = [
   { path: '', component: TransactionListComponent },
-  { path: 'bank-details', component: BankDetailsComponent },
+  { path: 'bank-details/:id', component: BankDetailsComponent },
   { path: 'banks-list', component: BanksListComponent },
-  { path: 'transaction-details', component: TransactionDetailsComponent },
+  { path: 'transaction-details/:id', component: TransactionDetailsComponent },
 ];
 
 @NgModule({
