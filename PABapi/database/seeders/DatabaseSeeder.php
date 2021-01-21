@@ -16,26 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::table('operation_status')->insert([
-            'name' => "odebrano",
+            'name' => "Received",
         ]);
         DB::table('operation_status')->insert([
-            'name' => "wysłano",
+            'name' => "Sent",
         ]);
-        DB::table('operation_status')->insert([
-            'name' => "zawrocono",
-        ]);
-        DB::table('operation_status')->insert([
-            'name' => "zakonczono",
-        ]);
-
-        // DB::table('banks')->insert([
-        //     'name' => Str::random(10),
-        //     'bank_number' => "10902402"
-        // ]);
-
-        // DB::table('accounts')->insert([
-        //     'account_number' => "10902402",
-        //     'bank_id' => 1
-        // ]);
     }
 }

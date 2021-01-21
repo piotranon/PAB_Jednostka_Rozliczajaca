@@ -16,7 +16,8 @@ class Banks extends Migration
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('bank_number');
+            $table->string('bank_number')->unique();
+            $table->string('bank_account_number')->unique();
         });
     }
 

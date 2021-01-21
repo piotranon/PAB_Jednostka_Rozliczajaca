@@ -11,19 +11,29 @@ class Bank extends Model
 
     public $timestamps = false;
 
-    protected $dates = [];
-
     protected $fillable = [
         'name',
-        'bank_number'
+        'bank_number',
+        'bank_account_number'
     ];
 
-    public function account()
+    // public function account()
+    // {
+    //     return $this->hasOne(Account::class);
+    // }
+    // public function accountAll()
+    // {
+    //     return $this->hasOne(Account::class)->with('operationsAll');
+    // }
+
+    public function generateAccountNumberFromBankNumber()
     {
-        return $this->hasOne(Account::class);
+        $this->bank_account_number = $this->bank_number . "";
+        return $this;
     }
-    public function accountAll()
+
+    public function operations()
     {
-        return $this->hasOne(Account::class)->with('operationsAll');
+        return $this->hasMany(Operation::class);
     }
 }

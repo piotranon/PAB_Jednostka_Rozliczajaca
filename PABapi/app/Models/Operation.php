@@ -16,12 +16,19 @@ class Operation extends Model
     ];
 
     protected $fillable = [
-        'type',
-        'payer_account_number',
-        'recipient_account_number',
+        'debited_bank_id',
+        'credited_bank_id',
+
+        'debited_account_number',
+        'debited_name_and_address',
+
+        'credited_account_number',
+        'credited_name_and_address',
+
+        'title',
         'amount',
+
         'status_id',
-        'account_id'
     ];
 
     protected function serializeDate(DateTimeInterface $date)
@@ -34,8 +41,13 @@ class Operation extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function account()
+    public function debitedBank()
     {
-        return $this->belongsTo(Bank::class);
+        return $this->hasOne(Bank::class, "debited_bank_id", "id");
+    }
+
+    public function creditedBank()
+    {
+        return $this->hasOne(Bank::class, "credited_bank_id", "id");
     }
 }

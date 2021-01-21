@@ -10,6 +10,6 @@ class OperationController extends Controller
     public function getAllOperations()
     {
         $Transfers = Operation::all();
-        return response()->json($Transfers->load(['status', 'account']), 200);
+        return response()->json($Transfers->load(['status']), 200);
     }
 }

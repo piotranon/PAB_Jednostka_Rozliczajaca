@@ -15,17 +15,26 @@ class Operations extends Migration
     {
         Schema::create('operations', function (Blueprint $table) {
             $table->id();
-            $table->integer('type');
-            $table->string('payer_account_number');
-            $table->string('recipient_account_number');
+
+            $table->unsignedBigInteger('debited_bank_id');
+            $table->unsignedBigInteger('credited_bank_id');
+
+            $table->string('debited_account_number');
+            $table->string('debited_name_and_address');
+
+            $table->string('credited_account_number');
+            $table->string('credited_name_and_address');
+
+            $table->string('title');
             $table->float('amount', 10, 2, true);
+
             $table->timestamps();
 
             $table->unsignedBigInteger('status_id');
-            $table->unsignedBigInteger('account_id');
 
             $table->foreign('status_id')->references('id')->on('operation_status');
-            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('debited_bank_id')->references('id')->on('banks');
+            $table->foreign('credited_bank_id')->references('id')->on('banks');
         });
     }
 

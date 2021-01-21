@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\OperationController;
-
+use App\Http\Controllers\SessionController;
+use App\Services\ClearingHouseService;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,7 +24,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/operations', [OperationController::class, 'getAllOperations']);
 
-Route::get('/banks', [BankController::class, 'getAllBanks']);
-Route::get('/banks/{id}', [BankController::class, 'getBank']);
-Route::post('/banks/add', [BankController::class, 'postBank']);
-Route::post('/banks/session', [BankController::class, 'postSession']);
+
+Route::post('/banks', [BankController::class, 'postCreate']);
+Route::get('/banks', [BankController::class, 'getAll']);
+Route::get('/banks/{id}', [BankController::class, 'getId']);
+
+Route::post('/session', [SessionController::class, 'postData']);
+
+Route::get('/dupa/{id}', [ClearingHouseService::class, 'verifyAccountNumber']);
+// Route::post('/session', [BankController::class, 'postSession']);
