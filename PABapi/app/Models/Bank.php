@@ -17,23 +17,13 @@ class Bank extends Model
         'bank_account_number'
     ];
 
-    // public function account()
-    // {
-    //     return $this->hasOne(Account::class);
-    // }
-    // public function accountAll()
-    // {
-    //     return $this->hasOne(Account::class)->with('operationsAll');
-    // }
-
-    public function generateAccountNumberFromBankNumber()
+    public function debitedOperations()
     {
-        $this->bank_account_number = $this->bank_number . "";
-        return $this;
+        return $this->hasMany(Operation::class, 'debited_bank_id', 'id');
     }
 
-    public function operations()
+    public function creditedOperations()
     {
-        return $this->hasMany(Operation::class);
+        return $this->hasMany(Operation::class, 'credited_bank_id', 'id');
     }
 }

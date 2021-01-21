@@ -67,7 +67,6 @@ class BankController extends Controller
             $bank = Bank::all();
             return response()->json($bank, 200);
         } catch (PDOException $e) {
-            DB::rollback();
             return response()->json(['errors' => ['title' => "Database problem", 'detail' => $e->getMessage()]], 500);
         } catch (Exception $e) {
             return response()->json(['errors' => ['title' => $e->getMessage(), 'details' => $e->getTrace()]], 500);
@@ -77,12 +76,11 @@ class BankController extends Controller
     public function getId($id)
     {
         try {
-            $bank = Bank::find($id);
+            $bank = Bank::find($id)->first();
             if (!$bank)
                 return response()->json(['errors' => ['title' => 'Invalid bank id', 'detail' => 'Bank identified by id: "' . $id . '" doesn\'t exist in database.']], 422);
-            return response()->json($bank, 200);
+            return response()->json($bank->load(['debitedOperations', 'creditedOperations']), 200);
         } catch (PDOException $e) {
-            DB::rollback();
             return response()->json(['errors' => ['title' => "Database problem", 'detail' => $e->getMessage()]], 500);
         } catch (Exception $e) {
             return response()->json(['errors' => ['title' => $e->getMessage(), 'details' => $e->getTrace()]], 500);

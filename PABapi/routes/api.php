@@ -22,7 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/operations', [OperationController::class, 'getAllOperations']);
+Route::get('/operations', [OperationController::class, 'getAll']);
+Route::get('/operations/{id}', [OperationController::class, 'getId']);
 
 
 Route::post('/banks', [BankController::class, 'postCreate']);

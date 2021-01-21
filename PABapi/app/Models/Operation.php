@@ -43,11 +43,11 @@ class Operation extends Model
 
     public function debitedBank()
     {
-        return $this->hasOne(Bank::class, "debited_bank_id", "id");
+        return $this->hasOne(Bank::class, "id", "debited_bank_id");
     }
 
     public function creditedBank()
     {
-        return $this->hasOne(Bank::class, "credited_bank_id", "id");
+        return $this->hasOne(Bank::class, "id", "credited_bank_id");
     }
 }
