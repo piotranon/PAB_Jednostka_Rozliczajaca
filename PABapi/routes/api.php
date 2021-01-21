@@ -31,5 +31,4 @@ Route::get('/banks/{id}', [BankController::class, 'getId']);
 
 Route::post('/session', [SessionController::class, 'postData']);
 
-Route::get('/dupa/{id}', [ClearingHouseService::class, 'verifyAccountNumber']);
 // Route::post('/session', [BankController::class, 'postSession']);
