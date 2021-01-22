@@ -10,6 +10,7 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
+import { AddBankComponent } from './add-bank/add-bank.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     TransactionListComponent,
     TransactionDetailsComponent,
     TopBarComponent,
+    AddBankComponent,
   ],
   imports: [
     BrowserModule,
