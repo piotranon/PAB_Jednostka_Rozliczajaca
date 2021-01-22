@@ -76,7 +76,7 @@ class BankController extends Controller
     public function getId($id)
     {
         try {
-            $bank = Bank::find($id)->first();
+            $bank = Bank::find($id);
             if (!$bank)
                 return response()->json(['errors' => ['title' => 'Invalid bank id', 'detail' => 'Bank identified by id: "' . $id . '" doesn\'t exist in database.']], 422);
             return response()->json($bank->load(['debitedOperations', 'creditedOperations']), 200);
