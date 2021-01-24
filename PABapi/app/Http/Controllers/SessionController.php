@@ -131,12 +131,14 @@ class SessionController extends Controller
                     'PaymentSum' => $request['PaymentSum'],
                     'Payments' =>
                     [
-                        "DebitedAccountNumber" => $request['Payments'][0]['CreditedAccountNumber'],
-                        "DebitedNameAndAddress" => $request['Payments'][0]['CreditedNameAndAddress'],
-                        "CreditedAccountNumber" => $request['Payments'][0]['DebitedAccountNumber'],
-                        "CreditedNameAndAddress" => $request['Payments'][0]['DebitedNameAndAddress'],
-                        "Title" => $request['Payments'][0]['Title'],
-                        "Amount" => $request['Payments'][0]['Amount'],
+                        [
+                            "DebitedAccountNumber" => $request['Payments'][0]['CreditedAccountNumber'],
+                            "DebitedNameAndAddress" => $request['Payments'][0]['CreditedNameAndAddress'],
+                            "CreditedAccountNumber" => $request['Payments'][0]['DebitedAccountNumber'],
+                            "CreditedNameAndAddress" => $request['Payments'][0]['DebitedNameAndAddress'],
+                            "Title" => $request['Payments'][0]['Title'],
+                            "Amount" => $request['Payments'][0]['Amount'],
+                        ]
                     ]
                 ]
             );
