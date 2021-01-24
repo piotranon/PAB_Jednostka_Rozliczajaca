@@ -25,7 +25,7 @@ class OperationController extends Controller
     public function getId($id)
     {
         try {
-            $transfer = Operation::find($id)->first();
+            $transfer = Operation::find($id);
             if (!$transfer)
                 return response()->json(['errors' => ['title' => 'Invalid bank id', 'detail' => 'Operation identified by id: "' . $id . '" doesn\'t exist in database.']], 422);
             return response()->json($transfer->load(['status', 'debitedBank', 'creditedBank']), 200);
