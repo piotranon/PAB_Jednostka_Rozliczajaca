@@ -31,5 +31,6 @@ Route::get('/banks', [BankController::class, 'getAll']);
 Route::get('/banks/{id}', [BankController::class, 'getId']);
 
 Route::post('/session', [SessionController::class, 'postData']);
+Route::post('/session/test', [SessionController::class, 'testData']);
 
 // Route::post('/session', [BankController::class, 'postSession']);

@@ -24,6 +24,7 @@ class AccountService
             $accountNumber[2] = $accountNumber[3] = "0";
 
             $checkSum = intval(98 - bcmod($this->innerValidateAccountNumber($accountNumber), "97"));
+
             if ($checkSum < 10)
                 $checkSum = '0' . strval($checkSum);
 

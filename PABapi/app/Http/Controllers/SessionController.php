@@ -62,6 +62,7 @@ class SessionController extends Controller
             $operationsToBank = $OperationService->getOperationsForBank($debitedBank->id);
             $operationsFormated = [];
             $total = 0;
+
             foreach ($operationsToBank as $operation) {
                 $operationFormated = [];
                 $operationFormated['DebitedAccountNumber'] = $operation->debited_account_number;
@@ -86,6 +87,62 @@ class SessionController extends Controller
             return response()->json(['errors' => ['title' => "Database problem", 'detail' => $e->getMessage()]], 500);
         } catch (Exception $e) {
             DB::rollback();
+            return response()->json(['errors' => ['title' => $e->getMessage(), 'details' => $e->getTrace()]], 500);
+        }
+    }
+
+    public function testData(Request $request)
+    {
+        try {
+            $ClearingHouseService = new ClearingHouseService();
+            $ClearingHouseService->validateBankNumber($request['BankNo']);
+
+            $payments = $request['Payments'];
+            $total = 0;
+            if ($payments) {
+                foreach ($payments as $payment) {
+                    Validator::make(
+                        $payment,
+                        [
+                            'DebitedAccountNumber' => ['required', 'string', 'size:28', 'regex:/^[P][L]\d{26}$/'],
+                            'DebitedNameAndAddress' => 'required|string',
+                            'CreditedAccountNumber' => ['required', 'string', 'size:28', 'regex:/^[P][L]\d{26}$/'],
+                            'CreditedNameAndAddress' => 'required|string',
+                            'Title' => 'required|string',
+                            'Amount' => 'required|numeric|min:0'
+                        ],
+                        [
+                            'DebitedAccountNumber.regex' => "Invalid IBAN format in account: " . $payment['DebitedAccountNumber'] . "'",
+                            'CreditedAccountNumber.regex' => "Invalid IBAN format in account: '" . $payment['CreditedAccountNumber'] . "'"
+                        ]
+                    )->validate();
+
+                    $total += $payment['Amount'];
+                }
+
+                // Weryfikacja sum całkowitych (iteracja po wszystkich przelewach, podliczenie amount i porównanie z payment sum
+                if ($total !== $request['PaymentSum'])
+                    throw ValidationException::withMessages(['PaymentSum' => 'PaymentSum :' . $request['PaymentSum'] . ' doesn\'t sum up with amount of all payments:' . $total . '.']);
+            }
+
+            return response()->json(
+                [
+                    'BankNo' => $request['BankNo'],
+                    'PaymentSum' => $request['PaymentSum'],
+                    'Payments' =>
+                    [
+                        "DebitedAccountNumber" => $request['Payments'][0]['CreditedAccountNumber'],
+                        "DebitedNameAndAddress" => $request['Payments'][0]['CreditedNameAndAddress'],
+                        "CreditedAccountNumber" => $request['Payments'][0]['DebitedAccountNumber'],
+                        "CreditedNameAndAddress" => $request['Payments'][0]['DebitedNameAndAddress'],
+                        "Title" => $request['Payments'][0]['Title'],
+                        "Amount" => $request['Payments'][0]['Amount'],
+                    ]
+                ]
+            );
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => ['title' => $e->getMessage(), 'details' => $e->errors()]], 422);
+        } catch (Exception $e) {
             return response()->json(['errors' => ['title' => $e->getMessage(), 'details' => $e->getTrace()]], 500);
         }
     }

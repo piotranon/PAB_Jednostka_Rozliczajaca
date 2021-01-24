@@ -45,8 +45,6 @@ class ClearingHouseService
      */
     public function validateBankNumber($bankNumber)
     {
-        if ($bankNumber[6] == 0)
-            return;
 
         if (strlen($bankNumber) != 8)
             throw ValidationException::withMessages(['bank_number' => 'Bank Number is too long.']);
@@ -55,6 +53,9 @@ class ClearingHouseService
         if (preg_match('([a-zA-Z])', $bankNumber))
             throw ValidationException::withMessages(['bank_number' => 'Bank Number cannot contains letters.']);
         // return false;
+
+        if ($bankNumber[6] == 0)
+            return;
 
         $sum = 3 * intval($bankNumber[0]) +
             9 * intval($bankNumber[1]) +
@@ -75,7 +76,12 @@ class ClearingHouseService
 
     public function generateAccountNumberFromBankNumber($bankNumber)
     {
-        $checkSum = intval(98 - bcmod($this->innerValidateAccountNumber("PL00" . $bankNumber . "0000000000000000"), "97"));
+        $checkSum = 98 - intval(bcmod($this->innerValidateAccountNumber("PL00" . $bankNumber . "0000000000000000"), "97"));
+
+        if ($checkSum < 10) {
+            $checkSum = "0" . $checkSum;
+        }
+
         return "PL" . $checkSum . $bankNumber . "0000000000000000";
     }
 
