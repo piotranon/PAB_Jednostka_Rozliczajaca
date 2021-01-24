@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TransactionListComponent } from './transaction-list/transaction-list.component';
-import { BankDetailsComponent } from './bank-details/bank-details.component';
-import { BanksListComponent } from './banks-list/banks-list.component';
-import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
-import { AddBankComponent } from './add-bank/add-bank.component';
+import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
+import { BankDetailsComponent } from './components/bank-details/bank-details.component';
+import { BanksListComponent } from './components/banks-list/banks-list.component';
+import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
+import { AddBankComponent } from './components/add-bank/add-bank.component';
 
 const routes: Routes = [
   { path: '', component: TransactionListComponent },

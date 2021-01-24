@@ -22,6 +22,7 @@
     "@fortawesome/angular-fontawesome": "^0.8.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@types/lodash": "^4.14.168",
     "bootstrap": "^5.0.0-beta1",
     "jQuery": "^1.7.4",
     "lodash": "^4.17.20",

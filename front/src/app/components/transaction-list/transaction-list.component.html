@@ -10,37 +10,37 @@
   <div class="row justify-content-center">
       <div class="col-10 Dashboard">
         <p>
-          Ilość transakcji odebranych: 
-          <span class="data">xd</span>
+          Ilość transakcji odebranych:
+          <span class="data">{{sumTransactionIncoming.length}}</span>
         </p>
 
         <p>
           Ilość transakcji wysłanych:
-          <span class="data">xd</span> 
+          <span class="data">{{sumTransactionOutgoing.length}}</span>
         </p>
 
         <p>
           Łączna ilość transakcji:
-          <span class="data">xd</span>
+          <span class="data">{{sumTransaction}}</span>
         </p>
-        
+
         <hr>
-        
+
         <p>
           Suma kwot wysłanych:
-          <span class="data">xd</span>
+          <span class="data">{{sumAmountsOutgoing}}</span>
         </p>
 
         <p>
           Suma kwot odebranych:
-          <span class="data">xd</span>
+          <span class="data">{{sumAmountsIncoming}}</span>
         </p>
 
         <p>
           Łączna suma kwot:
-          <span class="data">xd</span>
+          <span class="data">{{sumAmounts}}</span>
         </p>
-      </div> 
+      </div>
   </div>
 
   <div class="row justify-content-center">
@@ -55,15 +55,6 @@
         Lp.
       </p>
       <p class="title-column">
-        Nr konta nadawcy
-      </p>
-      <p class="title-column">
-        Nr konta odbiorcy
-      </p>
-      <p class="title-column">
-        Data transakcji
-      </p>
-      <p class="title-column">
         Kwota
       </p>
       <p class="title-column">
@@ -71,21 +62,10 @@
       </p>
     </div>
 
-
-    <!-- rout żeby calośc prznosiła do transaction-details-->
     <div *ngFor="let transaction of transactions; index as i"
          [routerLink]="['/', 'transaction-details', transaction.id]" class="transactions-list-item">
       <p>
         {{i + 1}}
-      </p>
-      <p>
-        {{transaction.payer_account_number}}
-      </p>
-      <p>
-        {{transaction.recipient_account_number}}
-      </p>
-      <p>
-        {{transaction.created_at}}
       </p>
       <p>
         {{transaction.amount}}

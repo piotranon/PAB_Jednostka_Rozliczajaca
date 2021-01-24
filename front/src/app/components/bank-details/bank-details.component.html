@@ -7,7 +7,7 @@
 
     <p class="bank-info">Numer banku: <span class="data"> {{bank.bank_number}} </span></p>
 
-    <p class="bank-info">Numer rachunku banku: <span class="data"> {{bank.account_all.account_number}} </span></p>
+    <p class="bank-info">Numer rachunku banku: <span class="data"> {{bank.bank_account_number}} </span></p>
 
     <p class="Subtitle">Lista operacji banku</p>
 
@@ -42,21 +42,21 @@
         </p>
       </div>
       <!-- rout żeby calośc prznosiła do transaction-details-->
-      <div class="bank-list-item" *ngFor="let operation of bank.account_all.operations_all; index as i">
+      <div class="bank-list-item" *ngFor="let operation of bankOperations; index as i">
         <p>
           {{i + 1}}
         </p>
         <p>
-          {{operation.payer_account_number}}
+
         </p>
         <p>
-          {{operation.recipient_account_number}}
+
         </p>
         <p>
-          {{operation.created_at}}
+
         </p>
         <p>
-          {{translateTypeToString(operation.type)}}{{operation.amount}}
+
         </p>
         <p>
           {{operation.status.name}}

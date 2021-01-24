@@ -21,42 +21,42 @@
 .transactions-list{
     border: 3px solid orange;
     background-color:  rgb(40,40,40) !important;;
-    text-align: center; 
+    text-align: center;
     margin: auto;
 }
 
 .transactions-list-header,
 .transactions-list-item{
     display: grid;
-    grid-template-columns: 1fr 7fr 7fr 4fr 4fr 3fr;
+    grid-template-columns: 1fr 4fr 3fr;
     padding: 0.5em;
     margin: auto;
 }
 
 .transactions-list-header{
     cursor: default;
-    
+
 }
 
 .transactions-list-item{
     background-color: rgb(80,80,80);
     color: rgb(245,245,245);
-    font-size: 1.1em; 
+    font-size: 1.1em;
     border-top: 1px solid rgb(255, 197, 88);
-    border-bottom: 1px solid rgb(255, 197, 88);  
+    border-bottom: 1px solid rgb(255, 197, 88);
 }
 
 .transactions-list-item:hover{
     background-color:  rgb(100, 100, 100);
     font-weight: bold;
     cursor: pointer;
-}  
+}
 
 .title-column{
     color: orange;
     font-weight: 600;
     font-size: 1.3em;
-} 
+}
 
 p{
     margin-top: 0.2em;

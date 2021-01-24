@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {faListUl} from '@fortawesome/free-solid-svg-icons';
-import {ApiService} from '../serivces/api.service';
-import IBank from '../interfaces/IBank';
+import {ApiService} from '../../serivces/api.service';
+import IBank from '../../interfaces/IBank';
 import {Subscription} from 'rxjs';
 
 

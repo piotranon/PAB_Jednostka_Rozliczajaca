@@ -1,5 +1,5 @@
 <div class="container">
-   
+
     <div class="row justify-content-center">
         <div class="col-8 Subtitle text-center">
             <fa-icon [icon]="faUniversity" class="BankIcon"></fa-icon>
@@ -13,14 +13,14 @@
             <p class="bank-info">
                 Nazwa banku:
             </p>
-            <input type="text" placeholder="Nazwa banku" class="Input-bank-data"/>
+            <input type="text" placeholder="Nazwa banku" [(ngModel)]="bankName" class="Input-bank-data"/>
             <p class="bank-info">
                 Numer banku:
             </p>
-            <input type="text" placeholder="Numer banku" class="Input-bank-data"/> <br>
+            <input type="text" placeholder="Numer banku" [(ngModel)]="bankNumber" class="Input-bank-data"/> <br>
 
-            
-            <button type="submit" class="add-bank-button">Dodaj bank</button>
+
+            <button (click)="addBank()" class="add-bank-button">Dodaj bank</button>
         </div>
     </div>
 
