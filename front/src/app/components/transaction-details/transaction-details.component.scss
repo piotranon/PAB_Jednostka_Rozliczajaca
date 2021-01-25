@@ -21,5 +21,9 @@
 .transaction-info{
     margin-left: 2em;
     font-size: 1.3em;
-    font-weight: 600;
+    font-weight: bold;
+}
+
+.link:hover{
+  cursor: pointer;
 }

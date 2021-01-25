@@ -12,17 +12,21 @@ import ITransaction from '../../interfaces/ITransaction';
 })
 export class BankDetailsComponent implements OnInit, OnDestroy {
 
-  subs$: Subscription;
+  private bank$: Subscription;
   bank: IBank;
   bankOperations: ITransaction[];
+  debtSum: number;
+  credSum: number;
+  totalSum: number;
 
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
   ) {
+    this.debtSum = this.credSum = this.totalSum = 0;
     this.bankOperations = [];
-    this.subs$ = new Subscription();
-    this.bank = {bank_account_number: '', bank_number: '', id: 0, name: ''};
+    this.bank$ = new Subscription();
+    this.bank = {bank_account_number: '', bank_number: '', credited_operations: [], debited_operations: [], id: 0, name: ''};
   }
 
   ngOnInit(): void {
@@ -30,25 +34,22 @@ export class BankDetailsComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(data => {
       id = data.id;
     });
-    this.subs$.add(this.apiService.getBankDetails(id).subscribe(data => {
+    this.bank$ = this.apiService.getBankDetails(id).subscribe((data: IBank) => {
       this.bank = data;
-    }));
-    this.subs$.add(this.apiService.getBankTransactions( this.bank.id).subscribe(data => {
-      this.bankOperations = data;
-    }));
+      this.bankOperations = [...data.credited_operations, ...data.debited_operations];
+      this.bankOperations.forEach( item => {
+        this.totalSum += item.amount;
+      });
+      data.credited_operations.forEach( item => {
+        this.credSum += item.amount;
+      });
+      data.debited_operations.forEach( item => {
+        this.debtSum += item.amount;
+      });
+    });
   }
 
   ngOnDestroy(): void {
-    this.subs$.unsubscribe();
-  }
-
-  translateTypeToString( type: number ): string {
-    if (type === 1 ) {
-      return '-';
-    }
-    if (type === 2 ) {
-      return '+';
-    }
-    return '';
+    this.bank$.unsubscribe();
   }
 }

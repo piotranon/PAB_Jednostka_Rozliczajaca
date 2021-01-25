@@ -17,7 +17,7 @@
             <p class="bank-info">
                 Numer banku:
             </p>
-            <input type="text" placeholder="Numer banku" [(ngModel)]="bankNumber" class="Input-bank-data"/> <br>
+            <input type="text" placeholder="Numer banku" [maxLength]="8" [minlength]="8" [(ngModel)]="bankNumber" class="Input-bank-data"/> <br>
 
 
             <button (click)="addBank()" class="add-bank-button">Dodaj bank</button>

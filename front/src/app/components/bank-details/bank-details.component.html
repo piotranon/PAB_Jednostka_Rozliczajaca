@@ -11,14 +11,14 @@
 
     <p class="Subtitle">Lista operacji banku</p>
 
-    <p class="bank-info">Ilość transakcji odebranych: <span class="data"> 22</span></p>
-    <p class="bank-info">Łączna kwota transakcji odebranych: <span class="data"> 22 zł</span></p>
+    <p class="bank-info">Ilość transakcji odebranych: <span class="data">{{bank.credited_operations.length}}</span></p>
+    <p class="bank-info">Łączna kwota transakcji odebranych: <span class="data"> {{credSum}} zł</span></p>
     <hr>
-    <p class="bank-info">Ilość transakcji wysłanych: <span class="data"> 22</span></p>
-    <p class="bank-info">Łączna kwota transakcji wysłanych: <span class="data"> 22 zł</span></p>
+    <p class="bank-info">Ilość transakcji wysłanych: <span class="data">{{bank.debited_operations.length}}</span></p>
+    <p class="bank-info">Łączna kwota transakcji wysłanych: <span class="data"> {{debtSum}} zł</span></p>
     <hr>
-    <p class="bank-info">Łączna ilość transakcji: <span class="data"> 22</span></p>
-    <p class="bank-info">Łączna kwota transakcji: <span class="data"> 22 zł</span></p>
+    <p class="bank-info">Łączna ilość transakcji: <span class="data">{{bankOperations.length}}</span></p>
+    <p class="bank-info">Łączna kwota transakcji: <span class="data"> {{totalSum}} zł</span></p>
 
     <div class="bank-list">
       <div class="bank-list-header">
@@ -41,25 +41,24 @@
           Status
         </p>
       </div>
-      <!-- rout żeby calośc prznosiła do transaction-details-->
-      <div class="bank-list-item" *ngFor="let operation of bankOperations; index as i">
+      <div [routerLink]="['/', 'transaction-details', operation.id]" class="bank-list-item" *ngFor="let operation of bankOperations; index as i">
         <p>
           {{i + 1}}
         </p>
         <p>
-
+          {{operation.credited_account_number}}
         </p>
         <p>
-
+          {{operation.debited_account_number}}
         </p>
         <p>
-
+          {{operation.created_at}}
         </p>
         <p>
-
+          {{operation.amount}}
         </p>
         <p>
-          {{operation.status.name}}
+          {{operation.status_id | translateStatus}}
         </p>
 
       </div>

@@ -44,4 +44,9 @@ export class ApiService {
     return this.httpClient
       .post(this.PREFIX + this.BANKS, createObject) as Observable<any>;
   }
+
+  getTransactionsDetails(id: number): Observable<ITransaction> {
+    return this.httpClient
+      .get(this.PREFIX + this.OPERATIONS + `/${id}`) as Observable<ITransaction>;
+  }
 }

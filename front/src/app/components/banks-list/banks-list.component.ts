@@ -15,10 +15,12 @@ export class BanksListComponent implements OnInit, OnDestroy {
 
   private banks$: Subscription;
   banks: Array<IBank>;
+  search: string;
 
   constructor(
     private apiService: ApiService
   ) {
+    this.search = '';
     this.banks$ = new Subscription();
     this.banks = [];
   }

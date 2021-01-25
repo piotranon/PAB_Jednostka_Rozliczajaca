@@ -13,6 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddBankComponent } from './components/add-bank/add-bank.component';
 import { SearchTransactionPipe } from './pipes/search-transaction.pipe';
 import {FormsModule} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchBanksPipe } from './pipes/search-banks.pipe';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { TranslateStatusPipe } from './pipes/translate-status.pipe';
 
 
 @NgModule({
@@ -25,6 +29,8 @@ import {FormsModule} from '@angular/forms';
     TopBarComponent,
     AddBankComponent,
     SearchTransactionPipe,
+    SearchBanksPipe,
+    TranslateStatusPipe,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +38,8 @@ import {FormsModule} from '@angular/forms';
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

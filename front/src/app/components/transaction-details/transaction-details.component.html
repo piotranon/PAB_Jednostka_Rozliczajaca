@@ -1,31 +1,21 @@
 <div class="container">
     <div class="transaction-details">
-        <!-- NIEPOTRZEBNE WYWAL -->
         <p class="Subtitle"> Szczegóły transakcji</p>
 
-        <p class="transaction-info">Numer konta nadawcy: <span class="data"> data </span></p>
+        <p [routerLink]="['/', 'bank-details', creditedBank.id]" class="link transaction-info">Numer konta nadawcy: <span class="data"> {{debitedBank.bank_account_number}} </span></p>
 
-        <p class="transaction-info">Nazwa banku nadawcy: <span class="data">Bank A lub B</span></p>
-        <!-- 
-        <p class="transaction-info">Numer rachunku banku nadawcy: <span class="data">PL12312312312321</span></p>
-        -->
+        <p class="transaction-info">Nazwa banku nadawcy: <span class="data">{{debitedBank.name}}</span></p>
         <hr>
 
-        <p class="transaction-info">Numer konta odbiorcy: <span class="data"> data </span></p>
-        
-        <p class="transaction-info">Nazwa banku odbiorcy: <span class="data">Bank A lub B</span></p>
-        <!-- 
-        <p class="transaction-info">Numer rachunku banku odbiorcy: <span class="data">PL9987987987987</span></p>
-        -->
+        <p [routerLink]="['/', 'bank-details', debitedBank.id]" class="link transaction-info">Numer konta odbiorcy: <span class="data">{{creditedBank.bank_account_number}}</span></p>
+
+        <p class="transaction-info">Nazwa banku odbiorcy: <span class="data">{{creditedBank.name}}</span></p>
+
         <hr>
-        
-        <p class="transaction-info">Data transakcji: <span class="data"> data </span></p>
 
-        <p class="transaction-info">Kwota: <span class="data"> data </span></p>
+        <p class="transaction-info">Kwota: <span class="data"> {{transaction.amount}} </span></p>
 
-        <p class="transaction-info">Status: <span class="data"> data </span></p>
-
-        <p class="transaction-info">Data aktualizacji: <span class="data"> data </span></p>
+        <p class="transaction-info">Status: <span class="data"> {{transaction.status_id | translateStatus}} </span></p>
 
     </div>
 </div>

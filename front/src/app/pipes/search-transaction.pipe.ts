@@ -6,7 +6,7 @@ import ITransaction from '../interfaces/ITransaction';
 })
 export class SearchTransactionPipe implements PipeTransform {
 
-  transform(items: ITransaction[], search: string): unknown {
+  transform(items: ITransaction[], search: string): ITransaction[] {
     if (!items) { return []; }
 
     if (!search) { return items; }

@@ -3,8 +3,6 @@ import {faListOl} from '@fortawesome/free-solid-svg-icons';
 import {Subscription} from 'rxjs';
 import ITransaction from '../../interfaces/ITransaction';
 import {ApiService} from '../../serivces/api.service';
-// @ts-ignore
-import _ from 'lodash';
 
 @Component({
   selector: 'app-transaction-list',
@@ -15,17 +13,19 @@ export class TransactionListComponent implements OnInit, OnDestroy {
   faListOl = faListOl;
 
   private transactions$: Subscription;
-  transactions: Array<ITransaction>;
+  transactions: ITransaction[];
   sumAmountsOutgoing: number;
   sumAmountsIncoming: number;
   sumAmounts: number;
   sumTransactionOutgoing: any[];
   sumTransactionIncoming: any[];
   sumTransaction: number;
+  search: string;
 
   constructor(
     private apiService: ApiService,
   ) {
+    this.search = '';
     this.sumAmounts = this.sumAmountsIncoming = this.sumAmountsOutgoing = 0;
     this.sumTransaction = 0;
     this.sumTransactionIncoming = this.sumTransactionOutgoing = [];
@@ -35,8 +35,8 @@ export class TransactionListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.transactions$ = this.apiService.getAllTransactions().subscribe( (data: any[]) => {
-      this.transactions = data;
       console.log(data);
+      this.transactions = data;
       this.sumTransaction = data.length;
       this.sumTransactionOutgoing = this.transactions.filter( transaction => transaction.status_id === 2);
       this.sumTransactionIncoming = this.transactions.filter( transaction => transaction.status_id === 1);

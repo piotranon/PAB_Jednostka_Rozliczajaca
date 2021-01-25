@@ -9,7 +9,7 @@
 
     <div class="row justify-content-center">
         <div class="col-10 Input-Box">
-            <input type="text" class="search-input" />
+            <input type="text" class="search-input" [(ngModel)]="search" />
         </div>
     </div>
 
@@ -29,7 +29,7 @@
             </p>
         </div>
 
-        <div *ngFor="let bank of banks; index as i" [routerLink]="['/', 'bank-details', bank.id]" class="banks-list-item"> <!-- PRZEJŚCIE NA SZTYWNO!-->
+        <div *ngFor="let bank of banks | searchBanks: search; index as i" [routerLink]="['/', 'bank-details', bank.id]" class="banks-list-item">
             <div class="banks-list-item">
             <p>
                  {{i+1}}
