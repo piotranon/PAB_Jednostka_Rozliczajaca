@@ -14,7 +14,7 @@ export class SearchTransactionPipe implements PipeTransform {
     search = search.toLowerCase();
 
     return items.filter( transaction => {
-      if (transaction.amount.toString().includes(search) || transaction.status.name.includes(search)) {
+      if (transaction.amount.toString().includes(search) || transaction.title.includes(search)) {
         return transaction;
       }
       return null;
