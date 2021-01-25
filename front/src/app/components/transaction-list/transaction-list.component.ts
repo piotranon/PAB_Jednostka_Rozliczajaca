@@ -35,7 +35,6 @@ export class TransactionListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.transactions$ = this.apiService.getAllTransactions().subscribe( (data: any[]) => {
-      console.log(data);
       this.transactions = data;
       this.sumTransaction = data.length;
       this.sumTransactionOutgoing = this.transactions.filter( transaction => transaction.status_id === 2);
