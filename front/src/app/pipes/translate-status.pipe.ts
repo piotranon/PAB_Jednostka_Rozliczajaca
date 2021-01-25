@@ -14,7 +14,7 @@ export class TranslateStatusPipe implements PipeTransform {
   transform(value: number): string {
     if (value === statusEnum.SENT) { return 'Sent'; }
     if (value === statusEnum.RECEIVED) { return 'Received'; }
-    return statusEnum.NULL;
+    return 'Błąd';
   }
 
 }
