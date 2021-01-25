@@ -55,23 +55,40 @@
         Lp.
       </p>
       <p class="title-column">
+        Bank nadawcy
+      </p>
+      <p class="title-column">
+        Bank odbiorcy
+      </p>
+      <p class="title-column">
         Kwota
       </p>
       <p class="title-column">
         Status
       </p>
+      <p class="title-column">
+        Szczegóły
+      </p>
     </div>
 
-    <div *ngFor="let transaction of transactions | searchTransaction: search ; index as i"
-         [routerLink]="['/', 'transaction-details', transaction.id]" class="transactions-list-item">
+    <div *ngFor="let transaction of transactions | searchTransaction: search ; index as i" class="transactions-list-item">
       <p>
         {{i + 1}}
+      </p>
+      <p [routerLink]="['/', 'bank-details', transaction.debited_bank_id]">        
+        Bank nadawcy
+      </p>
+      <p [routerLink]="['/', 'bank-details', transaction.credited_bank_id]">
+        Bank odbiorcy
       </p>
       <p>
         {{transaction.amount}}
       </p>
       <p>
         {{transaction.status_id | translateStatus}}
+      </p>
+      <p [routerLink]="['/', 'transaction-details', transaction.id]">     
+        Szczegóły
       </p>
 
     </div>
