@@ -2,12 +2,12 @@
     <div class="transaction-details">
         <p class="Subtitle"> Szczegóły transakcji</p>
 
-        <p [routerLink]="['/', 'bank-details', creditedBank.id]" class="link transaction-info">Numer konta nadawcy: <span class="data"> {{debitedBank.bank_account_number}} </span></p>
+        <p [routerLink]="['/', 'bank-details', debitedBank.id]" class="link transaction-info">Numer konta nadawcy: <span class="data"> {{debitedBank.bank_account_number}} </span></p>
 
         <p class="transaction-info">Nazwa banku nadawcy: <span class="data">{{debitedBank.name}}</span></p>
         <hr>
 
-        <p [routerLink]="['/', 'bank-details', debitedBank.id]" class="link transaction-info">Numer konta odbiorcy: <span class="data">{{creditedBank.bank_account_number}}</span></p>
+        <p [routerLink]="['/', 'bank-details', creditedBank.id]" class="link transaction-info">Numer konta odbiorcy: <span class="data">{{creditedBank.bank_account_number}}</span></p>
 
         <p class="transaction-info">Nazwa banku odbiorcy: <span class="data">{{creditedBank.name}}</span></p>
 
