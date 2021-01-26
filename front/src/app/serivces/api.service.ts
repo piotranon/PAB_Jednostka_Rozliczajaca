@@ -10,7 +10,7 @@ import ICreateBank from '../interfaces/ICreateBank';
 })
 export class ApiService {
   // private PREFIX = 'http://localhost:8000/api';
-  private PREFIX = 'http://91.189.216.237:8000/api';
+  private PREFIX = 'http://192.168.1.150:8000/api';
   private BANKS = '/banks';
   private OPERATIONS = '/operations';
   private SESSION = '/session';
