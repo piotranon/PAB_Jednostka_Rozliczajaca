@@ -9,7 +9,7 @@ Bochaczyk Krzysztof, Bury Karol, Dyndał Patryk, Długosz Piotr, Filar Kamil
 1. [Struktura danych](https://github.com/piotranon/PAB_Jednostka_Rozliczajaca#struktura-danych)
 1. [Opis algorytmu sesji w postaci kroków](https://github.com/piotranon/PAB_Jednostka_Rozliczajaca#opis-algorytmu-sesji-w-postaci-krokow)
 
-## [Postman do API](https://documenter.getpostman.com/view/12136197/TVmS7vHe#04d1ae83-1a17-426f-8683-99c52850991b)
+## [Postman do API](https://documenter.getpostman.com/view/12136197/TVza9thB#b1468bca-b1d9-4cc0-baf0-1a248affd9de)
 
 
 ## Procesy biznesowe
